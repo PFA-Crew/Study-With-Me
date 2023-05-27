@@ -36,3 +36,41 @@ function App({ handleCreateUser, handleLoginUser }) {
 }
 
 export default App;
+
+/*
+FILE STRUCTURE:
+ client
+  - /src
+    - index.html
+    - index.js
+
+    - /assets
+      - Ducky.pngs
+      - login.scss
+      - waves.svg
+
+    - /components
+      - Login Component
+      - login.scss
+      - /Desktop
+        - Desktop Component
+         ////- Ducky
+        - Fidget Spinner
+        - Timer
+        - Notes
+        - Resources/ Study Resources
+
+*/
+
+// export default function App() {
+//   return (
+//     <BrowserRouter>
+//       <Routes>
+//         localhost:8000/
+//         <Route index element={<Desktop />} />
+//         localhost:8000/login
+//         <Route path='/login' element={<Login />} />
+//       </Routes>
+//     </BrowserRouter>
+//   )
+// }

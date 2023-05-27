@@ -35,9 +35,6 @@ function App() {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
-        // TODO: what/where is layouts?
-        // if user is being created, shouldn't there be a layout predefined inside db?
-        // body: JSON.stringify({ username: createRefUsername.current.value, password: createRefPassword.current.value, layouts }),
         body: JSON.stringify(clientDataObject),
       });
       const data = await fetchResponse.json();

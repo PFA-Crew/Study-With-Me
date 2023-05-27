@@ -1,10 +1,10 @@
-const User = require('../models/userModel');
+const { Users } = require('../models/userModel');
 
 const userController = {};
 
 userController.createUser = async (req, res, next) => {
   try {
-    const createdUser = await User.create(req.body);
+    const createdUser = await Users.create(req.body);
     console.log(createdUser);
     res.locals.userID = createdUser;
     return next();
@@ -17,7 +17,7 @@ userController.createUser = async (req, res, next) => {
 userController.verifyUser = async (req, res, next) => {
   try {
     // Deconstruct data from request body
-    const dbCheck = await User.findOne({ username: req.body.username });
+    const dbCheck = await Users.findOne({ username: req.body.username });
     const pwCheck = await dbCheck.password === req.body.password;
     console.log(req.body.username);
     if (dbCheck && pwCheck) {
