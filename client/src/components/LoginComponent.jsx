@@ -1,13 +1,15 @@
 import React from 'react';
 
-function App({ handleCreateUser, handleLoginUser }) {
+function LoginComponent({
+  handleCreateUser, handleLoginUser, clientDataObject, setClientData,
+}) {
   const submitForm = (event) => {
     event.preventDefault();
     const buttonClicked = event.nativeEvent.submitter.id; // is there a better way to do this?
     const formData = new FormData(event.target);
-    const clientDataObject = Object.fromEntries(formData); // {username: hello, password: world}
-    if (buttonClicked === 'loginButton') handleLoginUser();
-    else if (buttonClicked === 'createButton') handleCreateUser();
+    const userDataObject = Object.fromEntries(formData); // {username: hello, password: world}
+    if (buttonClicked === 'loginButton') setClientData(handleLoginUser(userDataObject));
+    else if (buttonClicked === 'createButton') setClientData(handleCreateUser(userDataObject));
   };
   /* no way to gradually switch background colors */
   // const switchToNight = (event) => {
@@ -35,7 +37,7 @@ function App({ handleCreateUser, handleLoginUser }) {
   );
 }
 
-export default App;
+export default LoginComponent;
 
 /*
 FILE STRUCTURE:

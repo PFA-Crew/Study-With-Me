@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, {
+  useState, useEffect, useRef, createContext,
+} from 'react';
 import './assets/App.css';
 import LoginComponent from './LoginComponent.jsx';
 import Notes from './Notes.jsx'
@@ -9,10 +11,11 @@ import Ducky from './Ducky.jsx'
 function App() {
   // const [showCreateDialog, setShowCreateDialog] = useState(false);
   // const [showLoginDialog, setShowLoginDialog] = useState(false);
-  const createRefUsername = useRef(null);
-  const createRefPassword = useRef(null);
-  const loginRefUsername = useRef(null);
-  const loginRefPassword = useRef(null);
+  const usernameRef = useRef(null);
+  const passwordRef = useRef(null);
+
+  // const clientContext = createContext();
+  const [clientDataObject, setClientData] = useState({});
 
   // const handleCreateDialogOpen = () => {
   //   setShowCreateDialog(true);
@@ -29,7 +32,7 @@ function App() {
   //   setShowLoginDialog(false);
   // };
 
-  const handleCreateUser = async (clientDataObject) => {
+  const handleCreateUser = async (createUserData) => {
     try {
       // make enclosing function async
       const postURL = '/auth/create';
@@ -39,18 +42,20 @@ function App() {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(clientDataObject),
+        body: JSON.stringify(createUserData),
       });
       const data = await fetchResponse.json();
       console.log(data);
+      return data;
     } catch (error) {
       // handle error
       console.log(error);
+      return {};
     }
 
     // handleCreateDialogClose();
   };
-  const handleLoginUser = async (clientDataObject) => {
+  const handleLoginUser = async (loginUserData) => {
     try {
       // make enclosing function async
       const postURL = '/auth/login';
@@ -60,15 +65,18 @@ function App() {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(clientDataObject),
+        body: JSON.stringify(loginUserData),
       });
       const data = await fetchResponse.json();
       // figure out how to populate state from this response
       console.log(data);
+      return data;
+
       // setLayouts(data);
     } catch (error) {
       // handle error
       console.log(error);
+      return {};
     }
 
     // handleLoginDialogClose();
@@ -144,7 +152,12 @@ function App() {
   return (
     // <>
     //   <div className="loginContainer loginContainerBorder">
-    //     <LoginComponent handleCreateUser={handleCreateUser} handleLoginUser={handleLoginUser} />
+    //     <LoginComponent
+          handleCreateUser={handleCreateUser}
+          handleLoginUser={handleLoginUser}
+          clientDataObject={clientDataObject}
+          setClientData={setClientData}
+        />
     //   </div>
     //   <div className="waveBackground" />
     // </>
@@ -166,7 +179,10 @@ function App() {
 
         <div id="desktop">
           <Desktop />
-        </div>
+          {/* <createDesktop account=> */}
+        {/* <function createDesktop => (props) => if account
+        !== {} return <Desktop account=accoutndata />> */}
+      </div>
       </section>
     </main>
   );
