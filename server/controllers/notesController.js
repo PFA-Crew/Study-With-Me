@@ -9,8 +9,7 @@ noteController.getUserNotes = async (req, res, next) => {
     const userNotes = await Promise.all(noteIDs.map(async (id) => {
       await Note.find({ noteID: id });
     }));
-    // Process obtained data
-    // Persist data to res.locals
+  
     res.locals.notes = userNotes;
     // Invoke next middleware
     return next();
