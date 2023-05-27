@@ -5,7 +5,6 @@ const router = express.Router();
 const userController = require('../controllers/userController');
 // const cookieController = require('../controllers/cookieController');
 // const sessionController = require('../controllers/sessionController');
-// const client_id = require(path.resolve('keys.js'))
 
 router.post('/create', userController.createUser, (req, res) => {
   res.status(201).json(res.locals);

@@ -9,12 +9,12 @@ userController.createUser = async (req, res, next) => {
     const createdUser = await Users.create({
       username,
       password,
-      duckColor,
     });
-    console.log(createdUser);
+
     res.locals = createdUser;
+
     return next();
-  } catch (error) {
+  } catch (err) {
     // Handle error
     return next({
       log: 'Error in userController.createUser' + err,
@@ -29,7 +29,9 @@ userController.verifyUser = async (req, res, next) => {
   try {
     // Deconstruct data from request body
     const { username, password } = req.body;
+
     const dbCheck = await Users.findOne({ username });
+
     if (!dbCheck) {
       return next({
         log: 'bad username',
@@ -37,20 +39,21 @@ userController.verifyUser = async (req, res, next) => {
         message: { err: 'wrong login credentials' },
       });
     }
+
     const { duckColor, notes } = dbCheck;
     const pwCheck = await bcrypt.compare(password, dbCheck.password);
-    console.log(username);
+
     if (pwCheck) {
-      console.log('logged in');
       res.locals.user = { username, notes, duckColor };
       return next();
     }
+
     return next({
       log: 'bad password',
       status: 400,
       message: { err: 'wrong login credentials' },
     });
-  } catch (error) {
+  } catch (err) {
     // Handle error
     return next({
       log: 'Error in userController.verifyUser' + err,
