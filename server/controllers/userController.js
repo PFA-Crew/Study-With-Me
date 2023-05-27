@@ -19,13 +19,13 @@ userController.createUser = async (req, res, next) => {
 userController.verifyUser = async (req, res, next) => {
   try {
     // Deconstruct data from request body
-    const { username, password } = req.body;
+    const { username, password, duckColor } = req.body;
     const dbCheck = await Users.findOne({ username });
     const pwCheck = await bcrypt.compare(password, dbCheck.password);
     console.log(username);
     if (dbCheck && pwCheck) {
       console.log('logged in');
-      // res.locals.userID = dbCheck._id;
+      res.locals.user = { duckColor };
       return next();
     }
     return next({ log: 'bad password', message: 'wrong login credentials' });
