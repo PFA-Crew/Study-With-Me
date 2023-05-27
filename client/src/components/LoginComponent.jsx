@@ -1,6 +1,6 @@
 import React from 'react';
 
-function App({
+function LoginComponent({
   handleCreateUser, handleLoginUser, clientDataObject, setClientData,
 }) {
   const submitForm = (event) => {
@@ -37,7 +37,7 @@ function App({
   );
 }
 
-export default App;
+export default LoginComponent;
 
 /*
 FILE STRUCTURE:
