@@ -1,5 +1,6 @@
 const express = require('express');
-const authRouter = require('./routes/auth');
+const authRouter = require('./routes/authRouter');
+const notesRouter = require('./routes/notesRouter');
 
 // Our server port
 const PORT = 1234;
@@ -13,9 +14,12 @@ app.use(express.json());
 // Send all auth urls to authRouter
 app.use('/auth', authRouter);
 
+// Send all notes urls to notesRouter
+app.use('/notes', notesRouter);
+
 // 404 handler
 app.use('*', (req, res) => {
-  console.log('catch all')
+  console.log('catch all');
   res.status(404).send('Not Found');
 });
 
@@ -40,6 +44,5 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
 });
-
 
 module.exports = app;
