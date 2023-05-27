@@ -42,7 +42,7 @@ header {
 }
 
 #navigation {
-  background-color: aqua;
+  background-color: rgba(20, 118, 255, 0);
   position: relative;
   /* width: 20em; */
   width: 15vw;
@@ -56,37 +56,56 @@ header {
 }
 
 #noteLayout {
-  background-color: rgb(211, 211, 211);
+  background-color: rgba(211, 211, 211, 0.802);
   height: 60%;
   margin: 5px;
-  padding: 5px;
+  padding: 20px;
+  border-radius: 10px;
+  ul {
+    font-size: 22px;
+  }
+}
+
+#notesContainer,
+#resourcesContainer {
+  margin: 5px;
+  li {
+    font-size: 18px;
+    list-style: none;
+    line-height: 24px;
+  }
 }
 
 #resourceLayout {
-  background-color: rgb(100, 100, 100);
-  height: 40%;
+  background-color: rgba(211, 211, 211, 0.804);
+  height: 35%;
   margin: 5px;
-  padding: 5px;
+  padding: 20px;
+  border-radius: 10px;
+  ul {
+    font-size: 22px;
+  }
 }
 
 .desktopContainer {
   display: grid;
-  background-color: rgba(190, 190, 190, 0.255);
+  background-color: rgba(190, 190, 190, 0.185);
   height: 100%;
   grid-template-columns: repeat(5, 1fr);
+  // grid-template-columns: 14vw 14vw 14vw 14vw 14vw;
   grid-template-rows: repeat(5, 1fr);
   grid-column-gap: 0px;
   grid-row-gap: 0px;
 }
 
 .center {
-  border: solid 1px black ;
+  border: solid 1px rgba(0, 0, 0, 0.251) ;
   text-align: center;
   grid-area: 2 / 2 / 5 / 5;
 }
 
 .cell {
-  border: solid 1px black ;
+  border: solid 1px rgba(0, 0, 0, 0.253) ;
   text-align: center;
 }
 
@@ -98,3 +117,36 @@ header {
 #cell7 { grid-area: 5 / 1 / 6 / 2; }
 #cell8 { grid-area: 5 / 2 / 6 / 5; }
 #cell9 { grid-area: 5 / 5 / 6 / 6; }
+
+#luckyducky {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  transition-duration: 1s;
+  img {
+    max-width: 50%;
+    max-height: 100%;
+    object-fit: contain;
+    // object-fit: cover;
+  }
+  &:hover {
+    transform: scale(1.2);
+    animation-name: tiltAnimation;
+    animation-duration: 2s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+  }
+}
+
+@keyframes tiltAnimation {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}

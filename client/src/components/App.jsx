@@ -1,12 +1,13 @@
 import React, {
   useState, useEffect, useRef, createContext,
 } from 'react';
-import './assets/App.css';
+import './assets/App.scss';
 import LoginComponent from './LoginComponent.jsx';
 import Notes from './Notes.jsx'
 import Desktop from './Desktop.jsx'
 import Resource from './Resources.jsx'
 import Ducky from './Ducky.jsx'
+import ResourceNotepad from './ResourceNotepad.jsx';
 
 function App() {
   // const [showCreateDialog, setShowCreateDialog] = useState(false);
@@ -148,22 +149,50 @@ function App() {
   //     </div>
 
   // </div>
+  // const displayResourcePad = () => {
+  //   return (
+  //     <ResourceNotepad />
+  //   )
+  // }
+  const [notes, addNote] = useState([]);
 
   return (
-    // <>
-    //   <div className="loginContainer loginContainerBorder">
-    //     <LoginComponent
-          handleCreateUser={handleCreateUser}
-          handleLoginUser={handleLoginUser}
-          clientDataObject={clientDataObject}
-          setClientData={setClientData}
-        />
-    //   </div>
-    //   <div className="waveBackground" />
-    // </>
+    /*
+    <>
+      <div className="loginContainer loginContainerBorder">
+        <LoginComponent
+    handleCreateUser={handleCreateUser}
+    handleLoginUser={handleLoginUser}
+    clientDataObject={clientDataObject}
+    setClientData={setClientData}
+  />              { <createDesktop account=> }
+        { <function createDesktop => (props) => if account
+        !== {} return <Desktop account=accoutndata />> }
+
+      </div>
+      <div className="waveBackground" />
+    </>
+
+    
+  render() {
+    const isLoggedIn = this.state.isLoggedIn;
+    let button;
+    if (isLoggedIn) {
+      button = <LogoutButton onClick={this.handleLogoutClick} />;
+    } else { 
+      button = <LoginButton onClick={this.handleLoginClick} />;
+    }
+    return (
+      <div>
+        <Greeting isLoggedIn={isLoggedIn} />{button}</div>
+    );
+  }    */
+   
+
+    // INTERFACE
     <main>
       <header>
-        <div id="hero">Study By Myself</div>
+        <div id="hero">Study With Me</div>
         <div id="user">
           <p>Pink Fairy Armadillo</p>
           <img id="userphoto" src="https://cdn.donmai.us/original/11/3d/113df6ccf7a23bfc9bf47e850a229159.jpg" alt="PFA" />
@@ -174,14 +203,10 @@ function App() {
         <div id="navigation">
           {/* hello world */}
           <Notes />
-          <Resource />
+          <Resource notes={ notes } addNote={addNote} />
         </div>
-
         <div id="desktop">
           <Desktop />
-          {/* <createDesktop account=> */}
-        {/* <function createDesktop => (props) => if account
-        !== {} return <Desktop account=accoutndata />> */}
       </div>
       </section>
     </main>
