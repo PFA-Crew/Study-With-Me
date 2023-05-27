@@ -1,21 +1,28 @@
+$oceanBlue: #054A91;
+$lightOceanBlue: #3E7CB1; // change previous two?
+$primaryWhite: #FCFCFC;
 
-*,*::before,*::after{
-    box-sizing: border-box;
-}
-*{
+
+* {
     margin:0;
     padding:0;
-    font:inherit
-}
-html {
-    background-color: #ffffff;
-    overflow:auto;
 }
 
-body{
-    height: 100%;
-    width: 100%;
+body {
+    height: 100vh;
+    width: 100vh;
     display: grid;
-    margin: 0;
     overflow: hidden;
+    background: linear-gradient($oceanBlue, $primaryWhite 70%, $primaryWhite 75%, $oceanBlue 80%);
+}
+
+.waveBackground {
+    aspect-ratio: 16/9;
+    width: 100vw;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-image: url('./waves.svg');
+    position: absolute; 
+    bottom: 10%;
 }
