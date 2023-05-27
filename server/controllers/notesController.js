@@ -6,17 +6,18 @@ const noteController = {};
 noteController.getUserNotes = async (req, res, next) => {
   try {
     const { noteIDs } = req.body.noteIDs;
+    //query all noteids and return array containing all matching note contents
     const userNotes = await Promise.all(noteIDs.map(async (id) => {
-      await Note.find({ noteID: id });
+      const noteContent = await Note.find({ noteID: id });
+      return {noteId: id , content: noteContent}
     }));
-    // Process obtained data
-    // Persist data to res.locals
+  
     res.locals.notes = userNotes;
-    // Invoke next middleware
+
     return next();
-  } catch (error) {
+  } catch (err) {
     // Handle error
-    return next(error);
+    return next(err);
   }
 };
 
