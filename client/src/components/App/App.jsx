@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import LoginComponent from './LoginComponent.jsx';
+import Notes from './Notes.jsx'
+import Desktop from './Desktop.jsx'
 
 function App() {
   // const [showCreateDialog, setShowCreateDialog] = useState(false);
@@ -138,12 +140,33 @@ function App() {
   // </div>
 
   return (
-    <>
-      <div className="loginContainer loginContainerBorder">
-        <LoginComponent handleCreateUser={handleCreateUser} handleLoginUser={handleLoginUser} />
-      </div>
-      <div className="waveBackground" />
-    </>
+    // <>
+    //   <div className="loginContainer loginContainerBorder">
+    //     <LoginComponent handleCreateUser={handleCreateUser} handleLoginUser={handleLoginUser} />
+    //   </div>
+    //   <div className="waveBackground" />
+    // </>
+    <main>
+      <header>
+        <div id="hero">Study By Myself</div>
+        <div id="user">
+          <p>Pink Fairy Armadillo</p>
+          <img id="userphoto" src="https://cdn.donmai.us/original/11/3d/113df6ccf7a23bfc9bf47e850a229159.jpg" alt="PFA" />
+        </div>
+      </header>
+
+      <section id="layout">
+        <div id="navigation">
+          {/* hello world */}
+          <Notes />
+
+        </div>
+
+        <div id="desktop">
+          <Desktop />
+        </div>
+      </section>
+    </main>
   );
 }
 
