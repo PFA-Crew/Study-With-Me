@@ -1,4 +1,5 @@
 const User = require('../models/userModel');
+const Note = require('../models/noteModel');
 
 const userController = {};
 
@@ -27,10 +28,27 @@ userController.verifyUser = async (req, res, next) => {
     console.log(req.body.username);
     if (dbCheck && pwCheck) {
       console.log('logged in');
-      res.locals.userID = dbCheck._id;
-      res.locals.layouts = dbCheck.layouts;
+      // res.locals.userID = dbCheck._id;
       next();
     }
+  } catch (error) {
+    // Handle error
+    return next(error);
+  }
+};
+
+// get users notes
+userController.getUserNotes = async (req, res, next) => {
+  try {
+    const { noteIDs } = req.body.noteIDs;
+    const userNotes = await Promise.all(noteIDs.map(async (id) => {
+      await Note.find({ noteID: id });
+    }));
+    // Process obtained data
+    // Persist data to res.locals
+    res.locals.notes = userNotes;
+    // Invoke next middleware
+    return next();
   } catch (error) {
     // Handle error
     return next(error);
