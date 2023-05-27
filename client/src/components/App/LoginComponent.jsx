@@ -1,13 +1,15 @@
 import React from 'react';
 
-function App({ handleCreateUser, handleLoginUser }) {
+function App({
+  handleCreateUser, handleLoginUser, clientDataObject, setClientData,
+}) {
   const submitForm = (event) => {
     event.preventDefault();
     const buttonClicked = event.nativeEvent.submitter.id; // is there a better way to do this?
     const formData = new FormData(event.target);
-    const clientDataObject = Object.fromEntries(formData); // {username: hello, password: world}
-    if (buttonClicked === 'loginButton') handleLoginUser();
-    else if (buttonClicked === 'createButton') handleCreateUser();
+    const userDataObject = Object.fromEntries(formData); // {username: hello, password: world}
+    if (buttonClicked === 'loginButton') setClientData(handleLoginUser(userDataObject));
+    else if (buttonClicked === 'createButton') setClientData(handleCreateUser(userDataObject));
   };
   /* no way to gradually switch background colors */
   // const switchToNight = (event) => {
@@ -36,3 +38,41 @@ function App({ handleCreateUser, handleLoginUser }) {
 }
 
 export default App;
+
+/*
+FILE STRUCTURE:
+ client
+  - /src
+    - index.html
+    - index.js
+
+    - /assets
+      - Ducky.pngs
+      - login.scss
+      - waves.svg
+
+    - /components
+      - Login Component
+      - login.scss
+      - /Desktop
+        - Desktop Component
+         ////- Ducky
+        - Fidget Spinner
+        - Timer
+        - Notes
+        - Resources/ Study Resources
+
+*/
+
+// export default function App() {
+//   return (
+//     <BrowserRouter>
+//       <Routes>
+//         localhost:8000/
+//         <Route index element={<Desktop />} />
+//         localhost:8000/login
+//         <Route path='/login' element={<Login />} />
+//       </Routes>
+//     </BrowserRouter>
+//   )
+// }
