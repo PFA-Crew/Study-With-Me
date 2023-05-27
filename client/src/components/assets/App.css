@@ -1,0 +1,100 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+header {
+  background-color: rgb(0, 170, 255);
+  display: flex;
+  width: 100vw;
+  height: 3em;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+}
+
+#hero {
+  color: white;
+  font-size: 30px;
+  font-style: italic;
+}
+
+#user {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  right: 0;
+  padding: 0 10px 0 0;
+}
+
+#user p{
+  color: white;
+  padding: 0 10px 0 0;
+}
+
+#userphoto {
+  height: 30px;
+}
+
+#layout {
+  display: flex;
+  height: 100%;
+}
+
+#navigation {
+  background-color: aqua;
+  position: relative;
+  /* width: 20em; */
+  width: 15vw;
+  height: 100%;
+}
+
+#desktop {
+  width: 84.5vw;
+  height: 96vh;
+  padding: 5px;
+}
+
+#noteLayout {
+  background-color: rgb(211, 211, 211);
+  height: 60%;
+  margin: 5px;
+  padding: 5px;
+}
+
+#resourceLayout {
+  background-color: rgb(100, 100, 100);
+  height: 40%;
+  margin: 5px;
+  padding: 5px;
+}
+
+.desktopContainer {
+  display: grid;
+  background-color: rgba(190, 190, 190, 0.255);
+  height: 100%;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+
+.center {
+  border: solid 1px black ;
+  text-align: center;
+  grid-area: 2 / 2 / 5 / 5;
+}
+
+.cell {
+  border: solid 1px black ;
+  text-align: center;
+}
+
+#cell1 { grid-area: 1 / 1 / 2 / 2; }
+#cell2 { grid-area: 1 / 2 / 2 / 5; }
+#cell3 { grid-area: 1 / 5 / 2 / 6; }
+#cell4 { grid-area: 2 / 1 / 5 / 2; }
+#cell6 { grid-area: 2 / 5 / 5 / 6; }
+#cell7 { grid-area: 5 / 1 / 6 / 2; }
+#cell8 { grid-area: 5 / 2 / 6 / 5; }
+#cell9 { grid-area: 5 / 5 / 6 / 6; }

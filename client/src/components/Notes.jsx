@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import './App.css';
+import './assets/App.css';
 
 function Notes() {
   return (
-    <div id="test">
+    <div id="noteLayout">
       <ul>Notes:</ul>
       <li>React</li>
       <li>Node.js</li>

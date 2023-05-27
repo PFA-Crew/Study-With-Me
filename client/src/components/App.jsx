@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import './App.css';
+import './assets/App.css';
 import LoginComponent from './LoginComponent.jsx';
 import Notes from './Notes.jsx'
 import Desktop from './Desktop.jsx'
+import Resource from './Resources.jsx'
+import Ducky from './Ducky.jsx'
 
 function App() {
   // const [showCreateDialog, setShowCreateDialog] = useState(false);
@@ -159,7 +161,7 @@ function App() {
         <div id="navigation">
           {/* hello world */}
           <Notes />
-
+          <Resource />
         </div>
 
         <div id="desktop">
