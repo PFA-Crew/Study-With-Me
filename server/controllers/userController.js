@@ -1,4 +1,5 @@
 const { Users } = require('../models/userModel');
+const bcrypt = require('bcryptjs');
 
 const userController = {};
 
@@ -20,13 +21,14 @@ userController.verifyUser = async (req, res, next) => {
     // Deconstruct data from request body
     const { username, password } = req.body;
     const dbCheck = await Users.findOne({ username });
-    const pwCheck = (await dbCheck.password) === password;
+    const pwCheck = await bcrypt.compare(password, dbCheck.password);
     console.log(username);
     if (dbCheck && pwCheck) {
       console.log('logged in');
       // res.locals.userID = dbCheck._id;
       return next();
     }
+    return next({ log: 'bad password', message: 'wrong login credentials' });
   } catch (error) {
     // Handle error
     return next(error);
