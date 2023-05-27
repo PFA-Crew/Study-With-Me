@@ -8,12 +8,11 @@ const userController = require('../controllers/userController');
 // const client_id = require(path.resolve('keys.js'))
 
 router.post('/create', userController.createUser, (req, res) => {
-  res.sendStatus(201);
+  res.status(201).json(res.locals);
 });
 
 router.post('/login', userController.verifyUser, (req, res) => {
   // find data in db and return json layouts
-
   res.status(201).json(res.locals);
 });
 
