@@ -156,9 +156,15 @@ function App() {
   // }
   const [notes, addNote] = useState();
 
-  const handleResourceClick = (event) => {
+  const handleResourceClose = () => {
+    addNote();
+  };
+
+  const handleResourceOpen = (event) => {
+    // fetch request made on click to backend ->
+    // needs noteID?
     event.preventDefault();
-    addNote(<ResourceNotepad />);
+    addNote(<ResourceNotepad handleResourceClose={handleResourceClose} />);
   };
 
   return (
@@ -210,15 +216,14 @@ function App() {
             <ul>Resources:</ul>
             <hr />
             <div id="resourcesContainer">
-              <li><a href="#" onClick={handleResourceClick}>Best Study Practice</a></li>
-              <li><a href="https://www.webmd.com/balance/stress-management/stress-relief-breathing-techniques" onClick={handleResourceClick}>Breathing Exercises</a></li>
-              <li><a href="https://www.mayoclinic.org/healthy-lifestyle/adult-health/multimedia/stretching/sls-20076525" onClick={handleResourceClick}>Desk Stretches</a></li>
-              {notes}
+              <li><a href="#" onClick={handleResourceOpen}>Best Study Practice</a></li>
+              <li><a href="https://www.webmd.com/balance/stress-management/stress-relief-breathing-techniques" onClick={handleResourceOpen}>Breathing Exercises</a></li>
+              <li><a href="https://www.mayoclinic.org/healthy-lifestyle/adult-health/multimedia/stretching/sls-20076525" onClick={handleResourceOpen}>Desk Stretches</a></li>
             </div>
           </div>
         </div>
         <div id="desktop">
-          <Desktop />
+          <Desktop notes={notes} />
         </div>
       </section>
     </main>
