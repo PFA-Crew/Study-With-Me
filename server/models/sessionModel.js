@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 
+const { Schema } = mongoose;
 
 const sessionSchema = new Schema({
   cookieId: { type: String, required: true, unique: true },

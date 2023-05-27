@@ -2,7 +2,6 @@ const Session = require('../models/sessionModel');
 
 const sessionController = {};
 
-
 sessionController.isLoggedIn = async (req, res, next) => {
   if (req.cookies.ssid) {
     if (await Session.findOne({ cookieId: req.cookies.ssid })) {

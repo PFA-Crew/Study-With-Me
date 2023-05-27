@@ -15,7 +15,6 @@ body{
     height: 100%;
     width: 100%;
     display: grid;
-    align-content: center;
-    margin: auto;
-    overflow: auto;
+    margin: 0;
+    overflow: hidden;
 }
