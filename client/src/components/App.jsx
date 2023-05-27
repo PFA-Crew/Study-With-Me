@@ -1,7 +1,7 @@
 import React, {
   useState, useEffect, useRef, createContext,
 } from 'react';
-import './App.css';
+import './assets/App.css';
 import LoginComponent from './LoginComponent.jsx';
 
 function App() {
@@ -155,7 +155,8 @@ function App() {
           setClientData={setClientData}
         />
         {/* <createDesktop account=> */}
-        {/* <function createDesktop => (props) => if account !== {} return <Desktop account=accoutndata />> */}
+        {/* <function createDesktop => (props) => if account
+        !== {} return <Desktop account=accoutndata />> */}
       </div>
       <div className="waveBackground" />
     </>
