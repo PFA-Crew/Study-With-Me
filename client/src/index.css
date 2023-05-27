@@ -1,0 +1,21 @@
+*,*::before,*::after{
+    box-sizing: border-box;
+}
+*{
+    margin:0;
+    padding:0;
+    font:inherit
+}
+html {
+    background-color: #ffffff;
+    overflow:auto;
+}
+
+body{
+    height: 100%;
+    width: 100%;
+    display: grid;
+    align-content: center;
+    margin: auto;
+    overflow: auto;
+}
