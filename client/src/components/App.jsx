@@ -3,10 +3,10 @@ import React, {
 } from 'react';
 import './assets/App.scss';
 import LoginComponent from './LoginComponent.jsx';
-import Notes from './Notes.jsx'
-import Desktop from './Desktop.jsx'
-import Resource from './Resources.jsx'
-import Ducky from './Ducky.jsx'
+import Notes from './Notes.jsx';
+import Desktop from './Desktop.jsx';
+import Resource from './Resources.jsx';
+import Ducky from './Ducky.jsx';
 import ResourceNotepad from './ResourceNotepad.jsx';
 
 function App() {
@@ -154,10 +154,16 @@ function App() {
   //     <ResourceNotepad />
   //   )
   // }
-  const [notes, addNote] = useState([]);
+  const [notes, addNote] = useState();
 
+  const handleResourceClick = (event) => {
+    event.preventDefault();
+    console.log(event);
+    addNote();
+  };
+  // https://allinworld99.blogspot.com/2016/05/create-simple-notepad-using-javascript.html
   return (
-    /*
+  /*
     <>
       <div className="loginContainer loginContainerBorder">
         <LoginComponent
@@ -165,7 +171,7 @@ function App() {
     handleLoginUser={handleLoginUser}
     clientDataObject={clientDataObject}
     setClientData={setClientData}
-  />              { <createDesktop account=> }
+        />              { <createDesktop account=> }
         { <function createDesktop => (props) => if account
         !== {} return <Desktop account=accoutndata />> }
 
@@ -173,13 +179,12 @@ function App() {
       <div className="waveBackground" />
     </>
 
-    
   render() {
     const isLoggedIn = this.state.isLoggedIn;
     let button;
     if (isLoggedIn) {
       button = <LogoutButton onClick={this.handleLogoutClick} />;
-    } else { 
+    } else {
       button = <LoginButton onClick={this.handleLoginClick} />;
     }
     return (
@@ -187,7 +192,6 @@ function App() {
         <Greeting isLoggedIn={isLoggedIn} />{button}</div>
     );
   }    */
-   
 
     // INTERFACE
     <main>
@@ -203,11 +207,20 @@ function App() {
         <div id="navigation">
           {/* hello world */}
           <Notes />
-          <Resource notes={ notes } addNote={addNote} />
+          {/* <Resource notes={ notes } addNote={addNote} /> */}
+          <div id="resourceLayout">
+            <ul>Resources:</ul>
+            <hr />
+            <div id="resourcesContainer">
+              <li><a href="#" onClick={handleResourceClick} id="best-study-practice">Best Study Practice</a></li>
+              <li><a href="https://www.webmd.com/balance/stress-management/stress-relief-breathing-techniques" onClick={handleResourceClick} id="breathing-exercises">Breathing Exercises</a></li>
+              <li><a href="https://www.mayoclinic.org/healthy-lifestyle/adult-health/multimedia/stretching/sls-20076525" onClick={handleResourceClick} id="desk-stretches">Desk Stretches</a></li>
+            </div>
+          </div>
         </div>
         <div id="desktop">
           <Desktop />
-      </div>
+        </div>
       </section>
     </main>
   );
