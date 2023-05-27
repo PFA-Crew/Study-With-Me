@@ -22,7 +22,7 @@ const userSchema = new Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   notes: [{ title: String, id: { type: Schema.Types.ObjectId, ref: 'note' } }],
-  duckcolor: String,
+  duckColor: { type: String, default: 'yellow' },
 });
 
 userSchema.pre('save', async function (next) {
