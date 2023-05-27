@@ -1,7 +1,7 @@
 const express = require('express');
 // const path = require('path');
 // const mongoose = require('mongoose');
-const auth = require('./routes/auth');
+const authRouter = require('./routes/auth');
 
 const PORT = 1234;
 
@@ -9,7 +9,7 @@ const app = express();
 
 app.use(express.json());
 
-app.use('/auth', auth);
+app.use('/auth', authRouter);
 
 app.get('/', (req, res) => {
   // figure out what to do with base route
