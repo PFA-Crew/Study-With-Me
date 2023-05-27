@@ -1,19 +1,32 @@
+ @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
 $oceanBlue: #054A91;
 $lightOceanBlue: #3E7CB1; // change previous two?
 $primaryWhite: #FCFCFC;
+$primaryText: #0C0C0C;
 
 
 * {
     margin:0;
     padding:0;
+    font-family: 'Lato', sans-serif;
+    color: $primaryText;
 }
 
 body {
     height: 100vh;
-    width: 100vh;
-    display: grid;
+    width: 100vw;
     overflow: hidden;
     background: linear-gradient($oceanBlue, $primaryWhite 70%, $primaryWhite 75%, $oceanBlue 80%);
+    // transition: all 1000ms linear;
+}
+
+#root {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .waveBackground {
@@ -25,4 +38,79 @@ body {
     background-image: url('./waves.svg');
     position: absolute; 
     bottom: 10%;
+    z-index: -1;
 }
+
+
+
+.loginContainer {
+    display: flex;
+    width: 30%;
+    min-width: 400px;
+    height: 35%;
+    min-height: 300px;
+    background-color: #fcfcfcc5;
+    box-shadow: 0px 0px 100px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    form {
+        margin-top: 20%;
+        gap: 10px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 1.75rem;
+        label {
+            text-align: center;
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+        }
+        p {
+            display: inline;
+            width: 45%;
+        }
+        input {
+            width: 45%;
+            border-radius: 5px;
+             &:hover {
+                transform: translateY(1px);
+                box-shadow: 0px 0px 20px rgba(99, 99, 99, 0.146);
+                transition: 100ms linear;
+                border-radius: 5px;
+            }
+        }
+
+    }
+}
+
+.loginButtonContainer {
+    width: 100%;
+    display: grid;
+    justify-items: center;
+    height: 70px;
+    grid-template-columns: 1fr 1fr;
+    .submitButton {
+        display: block;
+        margin-top: 10%;
+        font-size: 1rem;
+        width: 60%;
+        background-color: white;
+        &:hover {
+            transform: translateY(1px);
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.146);
+            transition: 100ms linear;
+        }
+    }
+}
+
+#loginButton:hover ~ #root{
+        background-color: black;
+}
+#createButton:hover {
+
+}        
+
+.loginContainerBorder { background-image: repeating-linear-gradient(0deg, #e4e4e4, #e4e4e4 12px, transparent 12px, transparent 31px, #e4e4e4 31px), repeating-linear-gradient(90deg, #e4e4e4, #e4e4e4 12px, transparent 12px, transparent 31px, #e4e4e4 31px), repeating-linear-gradient(180deg, #e4e4e4, #e4e4e4 12px, transparent 12px, transparent 31px, #e4e4e4 31px), repeating-linear-gradient(270deg, #e4e4e4, #e4e4e4 12px, transparent 12px, transparent 31px, #e4e4e4 31px); background-size: 6px calc(100% + 31px), calc(100% + 31px) 6px, 6px calc(100% + 31px) , calc(100% + 31px) 6px; background-position: 0 0, 0 0, 100% 0, 0 100%; background-repeat: no-repeat; animation: borderAnimation 1s infinite linear; }
+
+@keyframes borderAnimation { from { background-position: 0 0, -31px 0, 100% -31px, 0 100%; } to { background-position: 0 -31px, 0 0, 100% 0, -31px 100%; } } 
