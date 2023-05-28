@@ -167,6 +167,12 @@ function App() {
     addNote(<ResourceNotepad handleResourceClose={handleResourceClose} />);
   };
 
+  const handleResourceClick = (event) => {
+    event.preventDefault();
+    console.log(event);
+    addNote();
+  };
+  // https://allinworld99.blogspot.com/2016/05/create-simple-notepad-using-javascript.html
   return (
   /*
     <>
@@ -176,7 +182,7 @@ function App() {
     handleLoginUser={handleLoginUser}
     clientDataObject={clientDataObject}
     setClientData={setClientData}
-  />              { <createDesktop account=> }
+        />              { <createDesktop account=> }
         { <function createDesktop => (props) => if account
         !== {} return <Desktop account=accoutndata />> }
 
@@ -212,6 +218,7 @@ function App() {
         <div id="navigation">
           {/* hello world */}
           <Notes />
+
           <div id="resourceLayout">
             <ul>Resources:</ul>
             <hr />
@@ -219,6 +226,7 @@ function App() {
               <li><a href="#" onClick={handleResourceOpen}>Best Study Practice</a></li>
               <li><a href="https://www.webmd.com/balance/stress-management/stress-relief-breathing-techniques" onClick={handleResourceOpen}>Breathing Exercises</a></li>
               <li><a href="https://www.mayoclinic.org/healthy-lifestyle/adult-health/multimedia/stretching/sls-20076525" onClick={handleResourceOpen}>Desk Stretches</a></li>
+
             </div>
           </div>
         </div>

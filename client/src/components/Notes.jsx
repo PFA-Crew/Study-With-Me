@@ -5,7 +5,7 @@ function Notes() {
   return (
     <div id="noteLayout">
       <ul>Notes:</ul>
-      <hr></hr>
+      <hr />
       <div id="notesContainer">
         <li>React</li>
         <li>Node.js</li>
