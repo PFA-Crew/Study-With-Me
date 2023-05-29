@@ -19,7 +19,6 @@ function Notes() {
         <li>BCrypt</li>
         <li>Acorns</li>
         {/* {noteElements} */}
-
       </div>
     </div>
   );

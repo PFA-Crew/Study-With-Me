@@ -28,19 +28,39 @@ function App() {
   const [ customizationOptions, setCustomizationOptions ] = useState(['ducky', '', '', ''])
   const [ duckyEnabled, setDuckyEnabled ] = useState(false)
   const duckySetter = () => {
+    // setDuckyEnabled(!duckyEnabled)
+    // if (!duckyEnabled) {
+    //   const updatedOptions = customizationOptions.map(element => {
+    //     if (element === 'ducky') return '';
+    //     return element;
+    //   })
+    //   setCustomizationOptions(updatedOptions);
+    // }
+    // if (duckyEnabled) {
+    //   const updatedOptions = customizationOptions.map((element, index) => {
+    //     if (index === 0 && element === '') {return 'ducky'}
+    //     return element;
+    //   })
+    //   setCustomizationOptions(updatedOptions);
+    // }
+
     setDuckyEnabled(!duckyEnabled)
-    if (!duckyEnabled) {
+    if (duckyEnabled === false) {
       const updatedOptions = customizationOptions.map(element => {
         if (element === 'ducky') return '';
         return element;
-      })
+      });
       setCustomizationOptions(updatedOptions);
-    }
-    if (duckyEnabled) {
-      const updatedOptions = customizationOptions.map((element, index) => {
-        if (index === 0 && element === '') {return 'ducky'}
+    } else {
+      let hasBeenReplaced = false
+      const updatedOptions = customizationOptions.map((element) => {
+        if (element === '' && !hasBeenReplaced) {
+          hasBeenReplaced = true;
+          return 'ducky';
+        }
         return element;
-      })
+      });
+      console.log(updatedOptions)
       setCustomizationOptions(updatedOptions);
     }
   }
@@ -96,13 +116,11 @@ function App() {
         if (element === 'fidget') return '';
         return element;
       });
-      console.log(updatedOptions)
       setCustomizationOptions(updatedOptions);
     } else {
       let hasBeenReplaced = false
       const updatedOptions = customizationOptions.map((element) => {
         if (element === '' && !hasBeenReplaced) {
-          // if (index === 0 && element === '') {
           hasBeenReplaced = true;
           return 'fidget';
         }
@@ -112,6 +130,30 @@ function App() {
       setCustomizationOptions(updatedOptions);
     }
   };
+
+    // Pomodoro Timer Feature
+    const [ timerEnabled, settimerEnabled ] = useState(true)
+    const timerSetter = () => {
+      settimerEnabled(!timerEnabled);
+      if (timerEnabled === false) {
+        const updatedOptions = customizationOptions.map(element => {
+          if (element === 'timer') return '';
+          return element;
+        });
+        setCustomizationOptions(updatedOptions);
+      } else {
+        let hasBeenReplaced = false
+        const updatedOptions = customizationOptions.map((element) => {
+          if (element === '' && !hasBeenReplaced) {
+            hasBeenReplaced = true;
+            return 'timer';
+          }
+          return element;
+        });
+        console.log(updatedOptions)
+        setCustomizationOptions(updatedOptions);
+      }
+    };
   
 
   return (
@@ -188,7 +230,7 @@ function App() {
             <div className='customizationContent'>
               <span className="material-symbols-rounded" id='customClose' onClick={() => setCustomWindow(false)}>close</span>
               <div>
-                <label>Lucky Ducky Disabled</label><input type="checkbox" id="duckCheck" checked={duckyEnabled} onChange={duckySetter}></input>
+                <label>Lucky Ducky Disabled: </label><input type="checkbox" id="duckCheck" checked={duckyEnabled} onChange={duckySetter}></input>
               </div>
               <div>
                 <label>Choose a Lucky Ducky:</label>
@@ -207,7 +249,7 @@ function App() {
                 </select> 
               </div>
               <div>
-                <label>Pomodoro Timer Enabled </label><input type="checkbox" id="pomCheck"></input>
+                <label>Pomodoro Timer Disabled: </label><input type="checkbox" id="pomCheck" defaultChecked={timerEnabled} onChange={timerSetter}></input>
               </div>
               {/* <div>
                 <label for="pomPos">Pomodoro Timer Position:</label>
@@ -219,7 +261,7 @@ function App() {
                 </select> 
               </div> */}
               <div>
-                <label>Fidget Spinner Disabled </label><input type="checkbox" id="fidgetCheck" defaultChecked={fidgetEnabled} onChange={fidgetSetter}></input>
+                <label>Fidget Spinner Disabled: </label><input type="checkbox" id="fidgetCheck" defaultChecked={fidgetEnabled} onChange={fidgetSetter}></input>
               </div>
               {/* <div>
                 <label for="fidgetPos">Fidget Spinner Position:</label>
