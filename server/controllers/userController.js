@@ -22,7 +22,7 @@ userController.createUser = async (req, res, next) => {
   } catch (err) {
     // Handle error
     return next({
-      log: 'Error in userController.createUser' + err,
+      log: `Error in userController.createUser${err}`,
       message: {
         err: 'An error occured, check server logs',
       },
@@ -73,7 +73,7 @@ userController.verifyUser = async (req, res, next) => {
   } catch (err) {
     // Handle error
     return next({
-      log: 'Error in userController.verifyUser' + err,
+      log: `Error in userController.verifyUser${err}`,
       message: {
         err: 'An error occured, check server logs',
       },

@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const { Notes } = require('../models/userModel');
 const { Users } = require('../models/userModel');
 
@@ -9,25 +10,21 @@ notesController.createNote = async (req, res, next) => {
     // Destructure title, conttent and username from our request body
     const { title, content, username } = req.body;
 
-    // Add a new note object to our notes document
-    const createdNote = await Notes.create({ title, content });
-    // Deconstruct the id from the new note
-    const { _id } = createdNote;
-    // Deconstruct the notes array from the users document, finding the user that matches the username
-    const { notes } = await Users.findOne({ username });
-    // Create a new array passing in the id of our new note and spreading the array of note ids to the new array
-    const newNotes = [_id, ...notes];
+    const User = await Users.findOne({ username });
+    // get _id of user to use as reference on note
+    const { _id: owner_id } = User;
 
-    // Update relevant user notes array with our new array of notes ids
-    await Users.findOneAndUpdate({ username }, { notes: newNotes });
+    console.log(User);
+    // eslint-disable-next-line camelcase
+    const createdNote = await Notes.create({ owner_id, title, content });
+
     res.locals.note = createdNote;
 
-    // Move to our next middleware
     return next();
   } catch (err) {
-    //Handle error
+    // Handle error
     return next({
-      log: 'Error in notesController.createNote' + err,
+      log: `Error in notesController.createNote${err}`,
       message: {
         err: 'An error occured, check server logs',
       },
@@ -38,14 +35,10 @@ notesController.createNote = async (req, res, next) => {
 // get users notes
 notesController.getUserNotes = async (req, res, next) => {
   try {
-    const { Obj } = res.locals.user.notes;
-    //query all noteids and return array containing all matching note contents
-    const userNotes = await Promise.all(
-      noteIDs.map(async (_id) => {
-        const noteContent = await Note.find({ noteID: id });
-        return { noteId: _id, content: noteContent };
-      })
-    );
+    const { username } = res.locals.user;
+    // query all noteids and return array containing all matching note contents
+    const { _id: owner_id } = await Users.findOne({ username });
+    const userNotes = await Notes.find({ owner_id });
 
     res.locals.notes = userNotes;
 
@@ -53,7 +46,7 @@ notesController.getUserNotes = async (req, res, next) => {
   } catch (err) {
     // Handle error
     return next({
-      log: 'Error in notesController.getUserNotes' + err,
+      log: `Error in notesController.getUserNotes${err}`,
       message: {
         err: 'An error occured, check server logs',
       },
