@@ -39,28 +39,13 @@ function App() {
   const [ customizationOptions, setCustomizationOptions ] = useState(['ducky', '', '', ''])
   const [ duckyEnabled, setDuckyEnabled ] = useState(false)
   const duckySetter = () => {
-    // setDuckyEnabled(!duckyEnabled)
-    // if (!duckyEnabled) {
-    //   const updatedOptions = customizationOptions.map(element => {
-    //     if (element === 'ducky') return '';
-    //     return element;
-    //   })
-    //   setCustomizationOptions(updatedOptions);
-    // }
-    // if (duckyEnabled) {
-    //   const updatedOptions = customizationOptions.map((element, index) => {
-    //     if (index === 0 && element === '') {return 'ducky'}
-    //     return element;
-    //   })
-    //   setCustomizationOptions(updatedOptions);
-    // }
-
     setDuckyEnabled(!duckyEnabled)
     if (duckyEnabled === false) {
       const updatedOptions = customizationOptions.map(element => {
         if (element === 'ducky') return '';
         return element;
       });
+      console.log(updatedOptions)
       setCustomizationOptions(updatedOptions);
     } else {
       let hasBeenReplaced = false
@@ -74,6 +59,13 @@ function App() {
       console.log(updatedOptions)
       setCustomizationOptions(updatedOptions);
     }
+  }
+
+  // Ducky Chooser
+  const [ duckyVisual, setDuckyVisual ] = useState("yellow")
+  const handleDuckyVisual = (event) => {
+    const duckyVisualSet = event.target.value;
+    setDuckyVisual(duckyVisualSet);
   }
 
 
@@ -127,6 +119,7 @@ function App() {
         if (element === 'fidget') return '';
         return element;
       });
+      console.log(updatedOptions)
       setCustomizationOptions(updatedOptions);
     } else {
       let hasBeenReplaced = false
@@ -151,6 +144,7 @@ function App() {
           if (element === 'timer') return '';
           return element;
         });
+        console.log(updatedOptions)
         setCustomizationOptions(updatedOptions);
       } else {
         let hasBeenReplaced = false
@@ -232,7 +226,7 @@ function App() {
           </div>
         </div>
         <div id="desktop">
-          <Desktop customizationOptions={customizationOptions} notes={notes} />
+          <Desktop customizationOptions={customizationOptions} notes={notes} duckyVisual={duckyVisual}/>
         </div>
       </section>
 
@@ -246,14 +240,18 @@ function App() {
               </div>
               <div>
                 <label>Choose a Lucky Ducky:</label>
-                <select name="duckies" id="duckies">
-                  <option value="default">Default</option>
-                  <option value="color">Custom</option>
+                <select name="duckies" id="duckies" onChange={handleDuckyVisual} value={duckyVisual}>
+                  <option value="yellow">Yellow</option>
+                  <option value="blue">Blue</option>
+                  <option value="black">Black</option>
+                  <option value="santa">Santa</option>
+                  <option value="sailor">Sailor</option>
+                  <option value="crown">Crown</option>
                 </select> 
               </div>
               <div>
                 <label>Lucky Ducky Position:</label>
-                <select name="duckiesPos" id="duckiesPos" onChange={handleDuckyPosition} value={duckyPosition}>
+                <select name="duckiesPos" id="duckiesPos"  value={duckyPosition} onChange={handleDuckyPosition}>
                   <option value="topleft">Top Left</option>
                   <option value="topright">Top Right</option>
                   <option value="bottomleft">Bottom Left</option>
