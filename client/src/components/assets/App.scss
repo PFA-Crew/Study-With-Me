@@ -101,6 +101,49 @@ header {
   }
 }
 
+.resourceNotepad {
+  height: 100%;
+  width: 100%;
+  background-color: #fcfcfc;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  font-size:5rem;
+  animation: fadein 200ms;
+  -moz-animation: fadein 200ms;
+  -webkit-animation: fadein 200ms;
+  -o-animation: fadein 200ms;
+  textarea {
+    box-sizing: border-box;
+    background-color: transparent;
+    border: none;
+    resize: none;
+    height: 90%;
+    width: 100%;
+    padding: 5%;
+    padding-top:2%;
+  }
+  button {
+    align-self: flex-end;
+    height: 10%;
+    width: 10%;
+    background-color: transparent;
+    border: none;
+    font-size: 1.5rem;
+    color: #777;
+  }
+  #saveResource {
+    background: rgb(121, 206, 121);
+    color: rgb(255, 255, 255);
+    border-radius: 5px;
+    margin:  10px;
+    &:hover {
+      transition: 100ms linear;
+      background: rgb(108, 185, 108);
+    }
+  }
+}
+
 .desktopContainer {
   display: grid;
   background-color: rgba(190, 190, 190, 0.066);
@@ -251,6 +294,43 @@ hr {
   100% {
     transform: rotate(0deg);
   }
+}
+
+
+@keyframes fadein {
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-moz-keyframes fadein {
+    /* Firefox */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-webkit-keyframes fadein {
+    /* Safari and Chrome */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-o-keyframes fadein {
+    /* Opera */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 @keyframes spin {

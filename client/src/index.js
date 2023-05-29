@@ -23,3 +23,4 @@ root.render(
   // </BrowserRouter>,
   // <Route exact path="/" element={clientDataObject !== {} ? (<App clientDataObject={clientDataObject} />) : (<LoginComponent />)} />,
 );
+

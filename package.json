@@ -7,7 +7,7 @@
   "scripts": {
     "start": "webpack-dev-server --mode development --open --hot",
     "build": "webpack --mode production",
-    "dev": "webpack-dev-server --mode development --open --hot & nodemon server/index.js"
+    "dev": "webpack-dev-server --mode development --open --hot & nodemon server/server.js"
   },
   "keywords": [],
   "author": "",

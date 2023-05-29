@@ -15,6 +15,17 @@ function App() {
 
   const [notes, addNote] = useState();
 
+  const handleResourceClose = () => {
+    addNote();
+  };
+
+  const handleResourceOpen = (event) => {
+    // fetch request made on click to backend ->
+    // needs noteID?
+    event.preventDefault();
+    addNote(<ResourceNotepad handleResourceClose={handleResourceClose} />);
+  };
+
   const handleResourceClick = (event) => {
     event.preventDefault();
     console.log(event);
@@ -201,7 +212,7 @@ function App() {
       <section id="layout">
         <div id="navigation">
           <Notes />
-          {/* <Resource notes={ notes } addNote={addNote} /> */}
+
           <div id="resourceLayout">
             <ul>Resources</ul>
             <hr />
@@ -213,14 +224,15 @@ function App() {
             <ul>Study Resources</ul>
             <hr />
             <div id="studyResourcesContainer">
-              <li><a href="#" onClick={handleResourceClick} id="best-study-practice">Best Study Practices</a></li>
-              <li><a href="https://www.webmd.com/balance/stress-management/stress-relief-breathing-techniques" onClick={handleResourceClick} id="breathing-exercises">Breathing Exercises</a></li>
-              <li><a href="https://www.mayoclinic.org/healthy-lifestyle/adult-health/multimedia/stretching/sls-20076525" onClick={handleResourceClick} id="desk-stretches">Desk Stretches</a></li>
+              <li><a href="#" onClick={handleResourceOpen}>Best Study Practices</a></li>
+              <li><a href="https://www.webmd.com/balance/stress-management/stress-relief-breathing-techniques" onClick={handleResourceOpen}>Breathing Exercises</a></li>
+              <li><a href="https://www.mayoclinic.org/healthy-lifestyle/adult-health/multimedia/stretching/sls-20076525" onClick={handleResourceOpen}>Desk Stretches</a></li>
+
             </div>
           </div>
         </div>
         <div id="desktop">
-          <Desktop customizationOptions={customizationOptions}/>
+          <Desktop customizationOptions={customizationOptions} notes={notes} />
         </div>
       </section>
 
