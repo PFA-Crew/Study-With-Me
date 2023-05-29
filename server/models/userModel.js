@@ -24,7 +24,7 @@ mongoose
 const userSchema = new Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  notes: [{ id: { type: Schema.Types.ObjectId, ref: 'note' } }],
+  // notes: [{ id: { type: Schema.Types.ObjectId, ref: 'note' } }],
   duckColor: { type: String, default: 'yellow' },
 });
 
@@ -48,6 +48,7 @@ const Users = mongoose.model('user', userSchema);
 
 // Schema for our notes document
 const noteSchema = new Schema({
+  owner_id: { type: Schema.Types.ObjectId, ref: 'user' },
   title: String,
   content: String,
 });

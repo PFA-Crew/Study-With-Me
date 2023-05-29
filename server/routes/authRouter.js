@@ -3,6 +3,7 @@ const express = require('express');
 
 const router = express.Router();
 const userController = require('../controllers/userController');
+const notesController = require('../controllers/notesController');
 // const cookieController = require('../controllers/cookieController');
 // const sessionController = require('../controllers/sessionController');
 
@@ -12,7 +13,7 @@ router.post('/create', userController.createUser, (req, res) => {
 });
 
 // Route to find and verify a user
-router.post('/login', userController.verifyUser, (req, res) => {
+router.post('/login', userController.verifyUser, notesController.getUserNotes, (req, res) => {
   res.status(201).json(res.locals);
 });
 
