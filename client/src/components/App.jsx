@@ -32,6 +32,7 @@ function App() {
         if (element === 'ducky') return '';
         return element;
       })
+      
       setCustomizationOptions(updatedOptions);
     }
     if (duckyEnabled) {
@@ -42,6 +43,44 @@ function App() {
       setCustomizationOptions(updatedOptions);
     }
   }
+  const [ duckyPosition, setDuckyPosition ] = useState('topleft')
+  const handleDuckyPosition = (event) => {
+    const duckySpotSet = event.target.value;
+  
+    if (duckySpotSet === "topleft") {
+      const updatedOptions = customizationOptions.map((element, index) => {
+        if (element === 'ducky') return '';
+        if (index === 0) return 'ducky';
+        return element;
+      });
+  
+      setCustomizationOptions(updatedOptions);
+    } else if (duckySpotSet === "topright") {
+      const updatedOptions = customizationOptions.map((element, index) => {
+        if (element === 'ducky') return '';
+        if (index === 1) return 'ducky';
+        return element;
+      });
+  
+      setCustomizationOptions(updatedOptions);
+    } else if (duckySpotSet === "bottomleft") {
+      const updatedOptions = customizationOptions.map((element, index) => {
+        if (element === 'ducky') return '';
+        if (index === 2) return 'ducky';
+        return element;
+      });
+  
+      setCustomizationOptions(updatedOptions);
+    } else if (duckySpotSet === "bottomright") {
+      const updatedOptions = customizationOptions.map((element, index) => {
+        if (element === 'ducky') return '';
+        if (index === 3) return 'ducky';
+        return element;
+      });
+  
+      setCustomizationOptions(updatedOptions);
+    }
+  };
 
   return (
   /*
@@ -90,9 +129,16 @@ function App() {
           <Notes />
           {/* <Resource notes={ notes } addNote={addNote} /> */}
           <div id="resourceLayout">
-            <ul>Resources:</ul>
+            <ul>Resources</ul>
             <hr />
-            <div id="resourcesContainer">
+            <div id="personalResourcesContainer">
+              <li><a href="https://react.dev/reference/react" onClick={handleResourceClick}>Intro to React Hooks</a></li>
+              <li><a href="https://flexboxfroggy.com/" onClick={handleResourceClick}>Flexbox Froggy</a></li>
+
+            </div>
+            <ul>Study Resources</ul>
+            <hr />
+            <div id="studyResourcesContainer">
               <li><a href="#" onClick={handleResourceClick} id="best-study-practice">Best Study Practices</a></li>
               <li><a href="https://www.webmd.com/balance/stress-management/stress-relief-breathing-techniques" onClick={handleResourceClick} id="breathing-exercises">Breathing Exercises</a></li>
               <li><a href="https://www.mayoclinic.org/healthy-lifestyle/adult-health/multimedia/stretching/sls-20076525" onClick={handleResourceClick} id="desk-stretches">Desk Stretches</a></li>
@@ -120,9 +166,9 @@ function App() {
                 </select> 
               </div>
               <div>
-                <label for="duckiesPos">Lucky Ducky Position:</label>
-                <select name="duckiesPos" id="duckiesPos">
-                  <option value="topleftt">Top Left</option>
+                <label>Lucky Ducky Position:</label>
+                <select name="duckiesPos" id="duckiesPos" onChange={handleDuckyPosition} value={duckyPosition}>
+                  <option value="topleft">Top Left</option>
                   <option value="topright">Top Right</option>
                   <option value="bottomleft">Bottom Left</option>
                   <option value="bottomright">Bottom Right</option>

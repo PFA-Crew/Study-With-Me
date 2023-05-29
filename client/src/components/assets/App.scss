@@ -58,7 +58,6 @@ header {
 #navigation {
   background-color: rgba(20, 118, 255, 0);
   position: relative;
-  /* width: 20em; */
   width: 15vw;
   height: 100%;
 }
@@ -71,7 +70,7 @@ header {
 
 #noteLayout {
   background-color: rgba(211, 211, 211, 0.628);
-  height: 45%;
+  height: 45vh;
   margin: 5px;
   padding: 20px;
   border-radius: 10px;
@@ -81,8 +80,9 @@ header {
 }
 
 #notesContainer,
-#resourcesContainer {
-  margin: 5px;
+#personalResourcesContainer,
+#studyResourcesContainer {
+  margin: 15px 0 15px 5px;
   li {
     font-size: 18px;
     list-style: none;
@@ -90,9 +90,11 @@ header {
   }
 }
 
+
+
 #resourceLayout {
   background-color: rgba(211, 211, 211, 0.62);
-  height: 45%;
+  height: 45vh;
   margin: 5px;
   padding: 20px;
   border-radius: 10px;

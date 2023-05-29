@@ -9,7 +9,7 @@ function Notes() {
 
   return (
     <div id="noteLayout">
-      <ul>Notes:</ul>
+      <ul>Notes</ul>
       <hr />
       <div id="notesContainer">
         <li>React</li>
