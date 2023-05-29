@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './assets/App.scss';
 import Ducky from './Ducky.jsx'
-import App from './App.jsx'
+import FidgetSpinner from './FidgetSpinner.jsx'
+// import App from './App.jsx'
 
 function Desktop({customizationOptions}) {
 

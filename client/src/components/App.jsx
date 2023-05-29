@@ -8,6 +8,7 @@ import Desktop from './Desktop.jsx';
 import Resource from './Resources.jsx';
 import Ducky from './Ducky.jsx';
 import ResourceNotepad from './ResourceNotepad.jsx';
+import FidgetSpinner from './FidgetSpinner.jsx'
 
 function App() {
   // handleLoginDialogClose();
@@ -23,6 +24,7 @@ function App() {
 
   const [ customWindow, setCustomWindow ] = useState(false);
 
+  // Widget State Handler
   const [ customizationOptions, setCustomizationOptions ] = useState(['ducky', '', '', ''])
   const [ duckyEnabled, setDuckyEnabled ] = useState(false)
   const duckySetter = () => {
@@ -32,7 +34,6 @@ function App() {
         if (element === 'ducky') return '';
         return element;
       })
-      
       setCustomizationOptions(updatedOptions);
     }
     if (duckyEnabled) {
@@ -43,6 +44,10 @@ function App() {
       setCustomizationOptions(updatedOptions);
     }
   }
+
+
+  // Ducky Position Handler
+  // Outstanding Issues: Dropdown menu will not retain the selected position, cannot change back to Top Left without resetting, reselecting current position will kill the ducky
   const [ duckyPosition, setDuckyPosition ] = useState('topleft')
   const handleDuckyPosition = (event) => {
     const duckySpotSet = event.target.value;
@@ -81,6 +86,33 @@ function App() {
       setCustomizationOptions(updatedOptions);
     }
   };
+
+  // Fidget Spinner Feature
+  const [ fidgetEnabled, setFidgetEnabled ] = useState(true)
+  const fidgetSetter = () => {
+    setFidgetEnabled(!fidgetEnabled);
+    if (fidgetEnabled === false) {
+      const updatedOptions = customizationOptions.map(element => {
+        if (element === 'fidget') return '';
+        return element;
+      });
+      console.log(updatedOptions)
+      setCustomizationOptions(updatedOptions);
+    } else {
+      let hasBeenReplaced = false
+      const updatedOptions = customizationOptions.map((element) => {
+        if (element === '' && !hasBeenReplaced) {
+          // if (index === 0 && element === '') {
+          hasBeenReplaced = true;
+          return 'fidget';
+        }
+        return element;
+      });
+      console.log(updatedOptions)
+      setCustomizationOptions(updatedOptions);
+    }
+  };
+  
 
   return (
   /*
@@ -187,7 +219,7 @@ function App() {
                 </select> 
               </div> */}
               <div>
-                <label>Fidget Spinner Enabled </label><input type="checkbox" id="fidgetCheck"></input>
+                <label>Fidget Spinner Disabled </label><input type="checkbox" id="fidgetCheck" defaultChecked={fidgetEnabled} onChange={fidgetSetter}></input>
               </div>
               {/* <div>
                 <label for="fidgetPos">Fidget Spinner Position:</label>
@@ -198,7 +230,7 @@ function App() {
                   <option value="bottomright">Bottom Right</option>
                 </select> 
               </div> */}
-              <button id='customSave'>save</button>
+              {/* <button id='customSave'>save</button> */}
             </div>
           </div>
         )}

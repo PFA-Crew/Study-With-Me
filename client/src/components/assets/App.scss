@@ -90,8 +90,6 @@ header {
   }
 }
 
-
-
 #resourceLayout {
   background-color: rgba(211, 211, 211, 0.62);
   height: 45vh;
@@ -155,7 +153,17 @@ header {
   }
 }
 
-
+#fidgetSpinner {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  img {
+    max-width: 50%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+}
 
 hr {
   margin: 5px;
@@ -178,6 +186,7 @@ hr {
   font-size: 18px;
   padding: 40px;
   z-index: 1060;
+  width: 20em;
   .material-symbols-rounded {
     float: right;
     &:hover {
