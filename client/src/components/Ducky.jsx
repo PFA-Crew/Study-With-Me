@@ -4,6 +4,7 @@ import './assets/App.scss';
 function Ducky() {
   const handleClick = () => {
     const audio = new Audio("http://www.greatbluemarble.com/quack.wav");
+    audio.volume = 0.1;
     audio.play();
   }
 
