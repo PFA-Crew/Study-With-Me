@@ -14,7 +14,7 @@ router.post('/create', userController.createUser, (req, res) => {
 
 // Route to find and verify a user
 router.post('/login', userController.verifyUser, notesController.getUserNotes, (req, res) => {
-  res.status(201).json(res.locals.notes);
+  res.status(201).json(res.locals);
 });
 
 module.exports = router;
