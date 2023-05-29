@@ -67,7 +67,7 @@ function App() {
 
 
   // Ducky Position Handler
-  // Outstanding Issues: Dropdown menu will not retain the selected position, cannot change back to Top Left without resetting, reselecting current position will kill the ducky
+  // Outstanding Issues: Dropdown menu will not retain the selected position, cannot change back to Top Left without resetting, Ducky will overpower any existing widget in position, reselecting current position will kill the ducky
   const [ duckyPosition, setDuckyPosition ] = useState('topleft')
   const handleDuckyPosition = (event) => {
     const duckySpotSet = event.target.value;

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './assets/App.scss';
 
+// Visual proof of concept, replace with an actual fidget spinner
 function FidgetSpinner() {
   return (
     <div id="fidgetSpinner">
