@@ -1,7 +1,7 @@
  @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 
 $oceanBlue: #054A91;
-$lightOceanBlue: #3E7CB1; // change previous two?
+$lightOceanBlue: #3E7CB1;
 $primaryWhite: #FCFCFC;
 $primaryText: #0C0C0C;
 
@@ -18,11 +18,9 @@ body {
     width: 100vw;
     overflow: hidden;
     background: linear-gradient($oceanBlue, $primaryWhite 70%, $primaryWhite 75%, $oceanBlue 80%);
-    // transition: all 1000ms linear;
 }
 
 #root {
-    height: 100%;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -81,6 +79,10 @@ body {
             }
         }
 
+        #username, #password {
+            padding-left: 10px;
+        }
+
     }
 }
 
@@ -104,13 +106,25 @@ body {
     }
 }
 
-#loginButton:hover ~ #root{
-        background-color: black;
-}
-#createButton:hover {
-
-}        
-
 .loginContainerBorder { background-image: repeating-linear-gradient(0deg, #e4e4e4, #e4e4e4 12px, transparent 12px, transparent 31px, #e4e4e4 31px), repeating-linear-gradient(90deg, #e4e4e4, #e4e4e4 12px, transparent 12px, transparent 31px, #e4e4e4 31px), repeating-linear-gradient(180deg, #e4e4e4, #e4e4e4 12px, transparent 12px, transparent 31px, #e4e4e4 31px), repeating-linear-gradient(270deg, #e4e4e4, #e4e4e4 12px, transparent 12px, transparent 31px, #e4e4e4 31px); background-size: 6px calc(100% + 31px), calc(100% + 31px) 6px, 6px calc(100% + 31px) , calc(100% + 31px) 6px; background-position: 0 0, 0 0, 100% 0, 0 100%; background-repeat: no-repeat; animation: borderAnimation 1s infinite linear; }
 
 @keyframes borderAnimation { from { background-position: 0 0, -31px 0, 100% -31px, 0 100%; } to { background-position: 0 -31px, 0 0, 100% 0, -31px 100%; } } 
+
+.loginPadding {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    justify-content: center;
+    align-items: center;
+}
+
+#fidgetSpinner:hover {
+    animation-name: rotate; 
+    animation-duration: 0.5s; 
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+@keyframes rotate {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
+}

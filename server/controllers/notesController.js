@@ -1,23 +1,104 @@
-const Note = require('../models/noteModel');
+/* eslint-disable camelcase */
+const { Notes } = require('../models/userModel');
+const { Users } = require('../models/userModel');
 
-const noteController = {};
+const notesController = {};
 
-// get users notes
-noteController.getUserNotes = async (req, res, next) => {
+// Note creator middleware
+notesController.createNote = async (req, res, next) => {
   try {
-    const { noteIDs } = req.body.noteIDs;
-    const userNotes = await Promise.all(noteIDs.map(async (id) => {
-      await Note.find({ noteID: id });
-    }));
-    // Process obtained data
-    // Persist data to res.locals
-    res.locals.notes = userNotes;
-    // Invoke next middleware
+    // Destructure title, content and username from our request body
+    const { title, content, username } = req.body;
+
+    const User = await Users.findOne({ username });
+    // get _id of user to use as reference on note
+    const { _id: owner_id } = User;
+    // eslint-disable-next-line camelcase
+    const createdNote = await Notes.create({ owner_id, title, content });
+
+    res.locals.note = createdNote;
+
     return next();
-  } catch (error) {
+  } catch (err) {
     // Handle error
-    return next(error);
+    return next({
+      log: `Error in notesController.createNote${err}`,
+      message: {
+        err: 'An error occured, check server logs',
+      },
+    });
   }
 };
 
-module.exports = noteController;
+// Get a single note from a user
+notesController.getNote = async (req, res, next) => {
+  try {
+    const { title, username } = req.body;
+    // query noteid and return the single note
+    const { _id: owner_id } = await Users.findOne({ username });
+    const note = await Notes.findOne({ owner_id, title });
+
+    res.locals.note = note;
+
+    return next();
+  } catch (err) {
+    // Handle error
+    return next({
+      log: `Error in notesController.getUserNotes${err}`,
+      message: {
+        err: 'An error occured, check server logs',
+      },
+    });
+  }
+};
+
+// get users notes
+notesController.getUserNotes = async (req, res, next) => {
+  try {
+    const { username } = req.body;
+    // query all noteids and return array containing all matching note contents
+    const { _id: owner_id } = await Users.findOne({ username });
+    const userNotes = await Notes.find({ owner_id });
+
+    res.locals.notes = userNotes;
+
+    return next();
+  } catch (err) {
+    // Handle error
+    return next({
+      log: `Error in notesController.getUserNotes${err}`,
+      message: {
+        err: 'An error occured, check server logs',
+      },
+    });
+  }
+};
+
+notesController.updateNote = async (req, res, next) => {
+  // there should be a check here to make sure the logged in user is the only one able to update their note
+  // will have to wait until sessions are implemented
+  try {
+    const { note_id, content: newContent, title: newTitle } = req.body;
+
+    const updatedNote = await Notes.findOneAndUpdate(
+      { _id: note_id },
+      { title: newTitle, content: newContent },
+      { new: true },
+    );
+
+    res.locals.update = updatedNote;
+    // Persist data to res.locals
+    // Invoke next middleware
+    return next();
+  } catch (err) {
+    // Handle error
+    return next({
+      log: `Error in notesController.updateNote${err}`,
+      message: {
+        err: 'An error occured, check server logs',
+      },
+    });
+  }
+};
+
+module.exports = notesController;
