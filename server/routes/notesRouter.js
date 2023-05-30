@@ -10,6 +10,10 @@ router.post('/create', notesController.createNote, notesController.getUserNotes,
   res.status(200).json(res.locals);
 });
 
+router.post('/display', notesController.getNote, (req, res) => {
+  res.status(200).json(res.locals.note);
+})
+
 router.patch('/update', notesController.updateNote, (req, res) => {
   res.status(200).json(res.locals.update);
 });

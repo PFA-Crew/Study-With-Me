@@ -10,7 +10,7 @@ import FidgetSpinner from './FidgetSpinner.jsx'
 
 function App({ clientDataObject }) { // clientDataObject -> {user: {username: "hello", duckColor: "yellow"}, notes: []}
   // handleLoginDialogClose();
-
+  const [noteContent, setNoteContent] = useState( { title: '', content: '' } );
   const [notes, addNote] = useState();
   const [totalNotes, setTotalNotes] = useState(clientDataObject.notes);
   // Customization Modal State
@@ -164,8 +164,7 @@ function App({ clientDataObject }) { // clientDataObject -> {user: {username: "h
       <section id="layout">
         <div id="navigation">
           {/* <Notes totalNotes={totalNotes}  notes={clientDataObject.notes} /> */}
-          {console.log(totalNotes)}
-          <Notes notes={totalNotes} />
+          <Notes setNoteContent={setNoteContent} notes={totalNotes} />
 
           <div id="resourceLayout">
             <ul>Resources</ul>
@@ -193,7 +192,7 @@ function App({ clientDataObject }) { // clientDataObject -> {user: {username: "h
         </div>
 
         <div id="desktop">
-          <Desktop customizationOptions={customizationOptions} setTotalNotes={ setTotalNotes } notes={clientDataObject.notes} duckyVisual={duckyVisual} resourceURL={resourceURL} resourceWindow={resourceWindow} setResourceWindow={setResourceWindow} username={clientDataObject.user.username}/>
+          <Desktop customizationOptions={customizationOptions} setTotalNotes={setTotalNotes} notes={clientDataObject.notes} duckyVisual={duckyVisual} resourceURL={resourceURL} resourceWindow={resourceWindow} setResourceWindow={setResourceWindow} username={clientDataObject.user.username} noteContent={noteContent} />
         </div>
       </section>
 

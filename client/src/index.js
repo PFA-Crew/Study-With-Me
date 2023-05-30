@@ -8,7 +8,6 @@ import MainContainer from './MainContainer.jsx';
 
 const domNode = document.getElementById('root');
 const root = createRoot(domNode);
-// root.render(<LoginComponent />);
 root.render(
   <BrowserRouter>
     <MainContainer />

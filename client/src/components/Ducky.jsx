@@ -14,7 +14,6 @@ function Ducky({duckyVisual}) {
   // Set the URL for the Ducky based on Customization Modal option
   // Future options: different method for Ducky customization, add hats
   let url;
-  // console.log(duckyVisual)
   switch (duckyVisual) {
     case "yellow": url = 'https://www.pngarts.com/files/4/Rubber-Duck-Transparent-Images.png'
       break;

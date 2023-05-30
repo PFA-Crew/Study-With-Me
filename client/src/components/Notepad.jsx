@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './assets/App.scss';
 
-function Notepad({ username, setTotalNotes }) {
+function Notepad({ username, setTotalNotes, noteContent }) {
   const titleRef = useRef(null)
   const noteRef = useRef(null)
   
@@ -50,8 +50,8 @@ function Notepad({ username, setTotalNotes }) {
 
       {/* <input type='text' placeholder='Note Title' id='noteTitle' value={title} required></input> */}
       {/* <textarea type='text' placeholder='Jot some notes!' id='noteBody' rows='44' cols='54' value={content} required></textarea> */}
-      <input type='text' placeholder='Note Title' ref = {titleRef} id='noteTitle' required></input>
-      <textarea type='text' placeholder='Jot some notes!' ref={noteRef} id='noteBody' rows='44' cols='54' required></textarea>
+      <input type='text' placeholder='Note Title' ref={titleRef} id='noteTitle' defaultValue={ noteContent.title } required></input>
+      <textarea type='text' placeholder='Jot some notes!' ref={noteRef} id='noteBody' rows='44' cols='54' defaultValue={noteContent.content} required></textarea>
 
 
       <button onClick={() => saveNote()}>save</button>

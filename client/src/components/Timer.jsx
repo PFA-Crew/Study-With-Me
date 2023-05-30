@@ -4,9 +4,9 @@ import './assets/App.scss';
 // Visual proof of concept, replace with an actual timer
 function Timer() {
   const [timer, setTimer] = useState(1500);
-  const [first, setfirst] = useState(second)
+  const [timerRunning, settimerRunning] = useState(false)
   
-  function Timer() {
+  function TimerTime() {
 
     useEffect(() => {
       const interval = setInterval(() => {
@@ -19,17 +19,20 @@ function Timer() {
     }, [timer])
 
     return (
-      <div>{timer}</div>
+      <div>
+        <div>{timer}</div>
+        <button onClick={() => {
+        setInterval(() => setTimer(timer - 1), 1000)
+      }}>Start</button>
+      </div>
       // <button onClick={}> Start </button>
     )
   }
 
   return (
     <div id="timer">
-      <Timer />
-      <button onClick={() => {
-        setInterval(() => setTimer(timer - 1), 1000)
-      }}>Start</button>
+      <TimerTime />
+      
     </div>
   );
 }

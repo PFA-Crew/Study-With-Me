@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './assets/App.scss';
 
-function Notes({notes}) {
+function Notes({notes, setNoteContent}) {
   // Populate Notes Container with saved notes
   // let noteElements;
   // useEffect(() => {
@@ -9,9 +9,11 @@ function Notes({notes}) {
   //   noteElements = notes.map((note, i) => <li key={i} >{note.title}</li>
   // );
   // }, notes)
-  console.log(notes)
+  function displayNote(noteIndex) {
+    setNoteContent({ title: notes[noteIndex].title, content: notes[noteIndex].content})
+  }
   const noteElements = notes.map((note, i) => (
-    <li key={i} >{note.title}</li>
+    <li key={i} onClick={() => displayNote(i)}>{note.title}</li>
   ))
   return (
     <div id="noteLayout">

@@ -7,7 +7,7 @@ const notesController = {};
 // Note creator middleware
 notesController.createNote = async (req, res, next) => {
   try {
-    // Destructure title, conttent and username from our request body
+    // Destructure title, content and username from our request body
     const { title, content, username } = req.body;
 
     const User = await Users.findOne({ username });
@@ -23,6 +23,28 @@ notesController.createNote = async (req, res, next) => {
     // Handle error
     return next({
       log: `Error in notesController.createNote${err}`,
+      message: {
+        err: 'An error occured, check server logs',
+      },
+    });
+  }
+};
+
+// Get a single note from a user
+notesController.getNote = async (req, res, next) => {
+  try {
+    const { title, username } = req.body;
+    // query noteid and return the single note
+    const { _id: owner_id } = await Users.findOne({ username });
+    const note = await Notes.findOne({ owner_id, title });
+
+    res.locals.note = note;
+
+    return next();
+  } catch (err) {
+    // Handle error
+    return next({
+      log: `Error in notesController.getUserNotes${err}`,
       message: {
         err: 'An error occured, check server logs',
       },
