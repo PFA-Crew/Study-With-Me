@@ -33,10 +33,13 @@ function App() {
   };
   // https://allinworld99.blogspot.com/2016/05/create-simple-notepad-using-javascript.html
 
+  // Customization Modal State
   const [ customWindow, setCustomWindow ] = useState(false);
 
-  // Widget State Handler
+  // Widget State Handler (Ducky enabled by default)
   const [ customizationOptions, setCustomizationOptions ] = useState(['ducky', '', '', ''])
+
+  // Ducky Enabler/Disabler State & Functionality
   const [ duckyEnabled, setDuckyEnabled ] = useState(false)
   const duckySetter = () => {
     setDuckyEnabled(!duckyEnabled)
@@ -68,7 +71,6 @@ function App() {
     setDuckyVisual(duckyVisualSet);
   }
 
-
   // Ducky Position Handler
   // Outstanding Issues: Dropdown menu will not retain the selected position, cannot change back to Top Left without resetting, Ducky will overpower any existing widget in position, reselecting current position will kill the ducky
   const [ duckyPosition, setDuckyPosition ] = useState('topleft')
@@ -81,7 +83,6 @@ function App() {
         if (index === 0) return 'ducky';
         return element;
       });
-  
       setCustomizationOptions(updatedOptions);
     } else if (duckySpotSet === "topright") {
       const updatedOptions = customizationOptions.map((element, index) => {
@@ -89,7 +90,6 @@ function App() {
         if (index === 1) return 'ducky';
         return element;
       });
-  
       setCustomizationOptions(updatedOptions);
     } else if (duckySpotSet === "bottomleft") {
       const updatedOptions = customizationOptions.map((element, index) => {
@@ -97,7 +97,6 @@ function App() {
         if (index === 2) return 'ducky';
         return element;
       });
-  
       setCustomizationOptions(updatedOptions);
     } else if (duckySpotSet === "bottomright") {
       const updatedOptions = customizationOptions.map((element, index) => {
@@ -105,12 +104,11 @@ function App() {
         if (index === 3) return 'ducky';
         return element;
       });
-  
       setCustomizationOptions(updatedOptions);
     }
   };
 
-  // Fidget Spinner Feature
+  // Fidget Spinner Enabler/Disabler State & Functionality
   const [ fidgetEnabled, setFidgetEnabled ] = useState(true)
   const fidgetSetter = () => {
     setFidgetEnabled(!fidgetEnabled);
@@ -135,31 +133,40 @@ function App() {
     }
   };
 
-    // Pomodoro Timer Feature
-    const [ timerEnabled, settimerEnabled ] = useState(true)
-    const timerSetter = () => {
-      settimerEnabled(!timerEnabled);
-      if (timerEnabled === false) {
-        const updatedOptions = customizationOptions.map(element => {
-          if (element === 'timer') return '';
-          return element;
-        });
-        console.log(updatedOptions)
-        setCustomizationOptions(updatedOptions);
-      } else {
-        let hasBeenReplaced = false
-        const updatedOptions = customizationOptions.map((element) => {
-          if (element === '' && !hasBeenReplaced) {
-            hasBeenReplaced = true;
-            return 'timer';
-          }
-          return element;
-        });
-        console.log(updatedOptions)
-        setCustomizationOptions(updatedOptions);
-      }
-    };
-  
+  // Pomodoro Timer Enabler/Disabler State
+  const [ timerEnabled, settimerEnabled ] = useState(true)
+  const timerSetter = () => {
+    settimerEnabled(!timerEnabled);
+    if (timerEnabled === false) {
+      const updatedOptions = customizationOptions.map(element => {
+        if (element === 'timer') return '';
+        return element;
+      });
+      console.log(updatedOptions)
+      setCustomizationOptions(updatedOptions);
+    } else {
+      let hasBeenReplaced = false
+      const updatedOptions = customizationOptions.map((element) => {
+        if (element === '' && !hasBeenReplaced) {
+          hasBeenReplaced = true;
+          return 'timer';
+        }
+        return element;
+      });
+      console.log(updatedOptions)
+      setCustomizationOptions(updatedOptions);
+    }
+  };
+
+  const [ resourceURL, resourceURLSetter ] = useState('')
+  const [ resourceWindow, setResourceWindow ] = useState(false);
+
+  const handleResourceClick1 = (event) => {
+    event.preventDefault();
+    const url = event.target.href;
+    resourceURLSetter(url);
+    setResourceWindow(true);
+  }
 
   return (
   /*
@@ -211,9 +218,9 @@ function App() {
             <ul>Resources</ul>
             <hr />
             <div id="personalResourcesContainer">
-              <li><a href="https://react.dev/reference/react" onClick={handleResourceClick}>Intro to React Hooks</a></li>
-              <li><a href="https://flexboxfroggy.com/" onClick={handleResourceClick}>Flexbox Froggy</a></li>
-
+              <li><a href="https://react.dev/reference/react" onClick={handleResourceClick1}>Intro to React Hooks</a></li>
+              <li><a href="https://www.mongodb.com/docs/atlas/" onClick={handleResourceClick1}>MongoDB Atlas</a></li>
+              <li><a href="https://flexboxfroggy.com/" onClick={handleResourceClick1}>Flexbox Froggy</a></li>
             </div>
             <ul>Study Resources</ul>
             <hr />
@@ -221,12 +228,13 @@ function App() {
               <li><a href="#" onClick={handleResourceOpen}>Best Study Practices</a></li>
               <li><a href="https://www.webmd.com/balance/stress-management/stress-relief-breathing-techniques" onClick={handleResourceOpen}>Breathing Exercises</a></li>
               <li><a href="https://www.mayoclinic.org/healthy-lifestyle/adult-health/multimedia/stretching/sls-20076525" onClick={handleResourceOpen}>Desk Stretches</a></li>
-
             </div>
           </div>
+
         </div>
+
         <div id="desktop">
-          <Desktop customizationOptions={customizationOptions} notes={notes} duckyVisual={duckyVisual}/>
+          <Desktop customizationOptions={customizationOptions} notes={notes} duckyVisual={duckyVisual} resourceURL={resourceURL} resourceWindow={resourceWindow} setResourceWindow={setResourceWindow}/>
         </div>
       </section>
 
@@ -242,11 +250,12 @@ function App() {
                 <label>Choose a Lucky Ducky:</label>
                 <select name="duckies" id="duckies" onChange={handleDuckyVisual} value={duckyVisual}>
                   <option value="yellow">Yellow</option>
-                  <option value="blue">Blue</option>
+                  <option value="blunicorn">Blunicorn</option>
                   <option value="black">Black</option>
                   <option value="santa">Santa</option>
                   <option value="sailor">Sailor</option>
                   <option value="crown">Crown</option>
+                  <option value="constable">Constable</option>
                 </select> 
               </div>
               <div>
@@ -261,6 +270,7 @@ function App() {
               <div>
                 <label>Pomodoro Timer Disabled: </label><input type="checkbox" id="pomCheck" defaultChecked={timerEnabled} onChange={timerSetter}></input>
               </div>
+              {/* Future option: specify location for Pomodoro Timer */}
               {/* <div>
                 <label for="pomPos">Pomodoro Timer Position:</label>
                 <select name="pomPos" id="pomPos">
@@ -273,6 +283,7 @@ function App() {
               <div>
                 <label>Fidget Spinner Disabled: </label><input type="checkbox" id="fidgetCheck" defaultChecked={fidgetEnabled} onChange={fidgetSetter}></input>
               </div>
+              {/* Future option: specify location for Fidget Spinner */}
               {/* <div>
                 <label for="fidgetPos">Fidget Spinner Position:</label>
                 <select name="fidgetPos" id="fidgetPos">
@@ -282,7 +293,6 @@ function App() {
                   <option value="bottomright">Bottom Right</option>
                 </select> 
               </div> */}
-              {/* <button id='customSave'>save</button> */}
             </div>
           </div>
         )}

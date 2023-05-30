@@ -6,9 +6,10 @@ import Notepad from './Notepad.jsx'
 import Timer from './Timer.jsx'
 // import App from './App.jsx'
 
-function Desktop({notes, customizationOptions, duckyVisual}) {
+function Desktop({notes, customizationOptions, duckyVisual, resourceURL, resourceWindow, setResourceWindow}) {
 
   // (Not dry, can probably refactor to be more efficient)
+  // Populate the associated Cell with the required widget
   const cell1Populator = () => {
     if (customizationOptions[0] === "ducky") return <Ducky duckyVisual={duckyVisual}/>
     if (customizationOptions[0] === "fidget") return <FidgetSpinner />
@@ -20,6 +21,18 @@ function Desktop({notes, customizationOptions, duckyVisual}) {
     if (customizationOptions[1] === "fidget") return <FidgetSpinner />
     if (customizationOptions[1] === "timer") return <Timer />
   }
+
+  const cell5Populator = () => {
+    <div>
+      <span className="material-symbols-rounded" id="resourceClose" onClick={() => setResourceWindow(false)}>close</span>
+      <iframe src={resourceURL} id="iframe"></iframe>
+    </div>
+    
+  }
+
+  console.log(resourceURL)
+  console.log(resourceWindow)
+
 
   const cell7Populator = () => {
     if (customizationOptions[2] === "ducky") return <Ducky duckyVisual={duckyVisual}/>
@@ -33,19 +46,25 @@ function Desktop({notes, customizationOptions, duckyVisual}) {
     if (customizationOptions[3] === "timer") return <Timer />
   }
 
+
   return (
     // Future ideas: place music player in Cell 8, Notepad to primarily be in Cell 5 but relocate to Cell 6 when a Resource is opened.
-
     <div className="desktopContainer">
       {/* <h1>test</h1> */}
       <div className="cell" id="cell1">{cell1Populator()}</div>
-      <div className="cell" id="cell2">Cell 2</div>
+      <div className="cell" id="cell2"></div>
       <div className="cell" id="cell3">{cell3Populator()}</div>
-      <div className="cell" id="cell4">Cell 4</div>
-      <div className="center">{notes}</div>
+      <div className="cell" id="cell4"></div>
+      {/* <div className="center">{notes}</div> */}
+      <div className="center">
+         {/* <iframe src="https://react.dev/reference/react"></iframe> */}
+         <iframe src={resourceURL}></iframe>
+         {/* {cell5Populator()} */}
+      </div>
+
       <div className="cell" id="cell6"><Notepad /></div>
       <div className="cell" id="cell7">{cell7Populator()}</div>
-      <div className="cell" id="cell8">Cell 8</div>
+      <div className="cell" id="cell8"></div>
       <div className="cell" id="cell9">{cell9Populator()}</div>
     </div>
   );
