@@ -9,11 +9,10 @@ import './index.scss';
 
 function MainContainer() {
   const [clientDataObject, setClientData] = useState({});
-  console.log(clientDataObject.length === 0)
   return (
       <Routes>
         <Route exact path="/"
-          element={clientDataObject.length === 0 ?
+          element={clientDataObject.user !== undefined ?
             (<App clientDataObject={clientDataObject} />) :
             (<LoginComponent setClientData={setClientData} />)} />
       </Routes>
