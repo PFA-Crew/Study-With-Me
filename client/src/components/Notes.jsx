@@ -1,12 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './assets/App.scss';
 
-function Notes() {
+function Notes({notes}) {
   // Populate Notes Container with saved notes
-  // const noteElements = notes.map((note, i) => (
-  //   <li key={i} onClick={() => *show note* }>{noteName}</li>
-  // ));
-
+  // let noteElements;
+  // useEffect(() => {
+  //   console.log(notes)
+  //   noteElements = notes.map((note, i) => <li key={i} >{note.title}</li>
+  // );
+  // }, notes)
+  console.log(notes)
+  const noteElements = notes.map((note, i) => (
+    <li key={i} >{note.title}</li>
+  ))
   return (
     <div id="noteLayout">
       <ul>Notes</ul>
@@ -18,7 +24,7 @@ function Notes() {
         <li>React Routers</li>
         <li>BCrypt</li>
         <li>Acorns</li>
-        {/* {noteElements} */}
+        {noteElements}
       </div>
     </div>
   );

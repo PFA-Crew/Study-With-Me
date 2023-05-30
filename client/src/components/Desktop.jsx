@@ -6,7 +6,7 @@ import Notepad from './Notepad.jsx'
 import Timer from './Timer.jsx'
 // import App from './App.jsx'
 
-function Desktop({notes, customizationOptions, duckyVisual, resourceURL, resourceWindow, setResourceWindow}) {
+function Desktop({notes, customizationOptions, duckyVisual, resourceURL, resourceWindow, setResourceWindow, username, setTotalNotes}) {
 
   // (Not dry, can probably refactor to be more efficient)
   // Populate the associated Cell with the required widget
@@ -22,16 +22,16 @@ function Desktop({notes, customizationOptions, duckyVisual, resourceURL, resourc
     if (customizationOptions[1] === "timer") return <Timer />
   }
 
-  const cell5Populator = () => {
-    <div>
-      <span className="material-symbols-rounded" id="resourceClose" onClick={() => setResourceWindow(false)}>close</span>
-      <iframe src={resourceURL} id="iframe"></iframe>
-    </div>
-    
-  }
+  // Not working...
+  // const cell5Populator = () => {
+  //   <div>
+  //     <span className="material-symbols-rounded" id="resourceClose" onClick={() => setResourceWindow(false)}>close</span>
+  //     <iframe src={resourceURL} id="iframe"></iframe>
+  //   </div>
+  // }
 
-  console.log(resourceURL)
-  console.log(resourceWindow)
+  // console.log(resourceURL)
+  // console.log(resourceWindow)
 
 
   const cell7Populator = () => {
@@ -56,13 +56,12 @@ function Desktop({notes, customizationOptions, duckyVisual, resourceURL, resourc
       <div className="cell" id="cell3">{cell3Populator()}</div>
       <div className="cell" id="cell4"></div>
       {/* <div className="center">{notes}</div> */}
+      {/* Need to create button for closing out the  */}
       <div className="center">
-         {/* <iframe src="https://react.dev/reference/react"></iframe> */}
          <iframe src={resourceURL}></iframe>
-         {/* {cell5Populator()} */}
       </div>
 
-      <div className="cell" id="cell6"><Notepad /></div>
+      <div className="cell" id="cell6"><Notepad setTotalNotes={setTotalNotes} username={username}/></div>
       <div className="cell" id="cell7">{cell7Populator()}</div>
       <div className="cell" id="cell8"></div>
       <div className="cell" id="cell9">{cell9Populator()}</div>

@@ -13,7 +13,6 @@ notesController.createNote = async (req, res, next) => {
     const User = await Users.findOne({ username });
     // get _id of user to use as reference on note
     const { _id: owner_id } = User;
-
     // eslint-disable-next-line camelcase
     const createdNote = await Notes.create({ owner_id, title, content });
 
@@ -34,7 +33,7 @@ notesController.createNote = async (req, res, next) => {
 // get users notes
 notesController.getUserNotes = async (req, res, next) => {
   try {
-    const { username } = res.locals.user;
+    const { username } = req.body;
     // query all noteids and return array containing all matching note contents
     const { _id: owner_id } = await Users.findOne({ username });
     const userNotes = await Notes.find({ owner_id });

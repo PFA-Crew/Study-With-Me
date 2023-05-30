@@ -9,6 +9,7 @@ import './index.scss';
 
 function MainContainer() {
   const [clientDataObject, setClientData] = useState({});
+  console.log() // {user: {username: "hello", duckColor: "yellow"}, notes: []}
   return (
       <Routes>
         <Route exact path="/"

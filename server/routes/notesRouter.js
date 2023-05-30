@@ -2,11 +2,12 @@ const express = require('express');
 
 const router = express.Router();
 const notesController = require('../controllers/notesController');
+const userController = require('../controllers/userController')
 
 // Route to create and add a new note to our user
 
-router.post('/create', notesController.createNote, (req, res) => {
-  res.status(200).json(res.locals.note);
+router.post('/create', notesController.createNote, notesController.getUserNotes, (req, res) => {
+  res.status(200).json(res.locals);
 });
 
 router.patch('/update', notesController.updateNote, (req, res) => {

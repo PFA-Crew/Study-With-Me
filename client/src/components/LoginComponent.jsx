@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import '../index.scss';
 
 function LoginComponent({ setClientData }) {
-  // clientDataObject set to returned value of fetch
+  // clientDataObject set to returned user
+  // TODO: Add visuals for wrong login information
+        // Loading gif for login
   const handleCreateUser = async (createUserData) => {
     try {
-      // make enclosing function async
       const postURL = '/auth/create';
       const fetchResponse = await fetch(postURL, {
         method: 'POST',
@@ -23,12 +24,10 @@ function LoginComponent({ setClientData }) {
       console.log(error);
       return {};
     }
-
-    // handleCreateDialogClose();
   };
+
   const handleLoginUser = async (loginUserData) => {
     try {
-      // make enclosing function async
       const postURL = '/auth/login';
       const fetchResponse = await fetch(postURL, {
         method: 'POST',
@@ -41,8 +40,6 @@ function LoginComponent({ setClientData }) {
       const data = await fetchResponse.json();
       setClientData(data)
       return data;
-
-      // setLayouts(data);
     } catch (error) {
       // handle error
       console.log(error);
@@ -71,7 +68,6 @@ function LoginComponent({ setClientData }) {
             <p>Password:</p>
             <input type="password" id="password" name="password" required />
           </label>
-          {/* pass in login/sign up */}
           <div className="loginButtonContainer">
             <input type="submit" value="Login" className="submitButton" id="loginButton" />
             <input type="submit" value="Create Account" className="submitButton" id="createButton" />
@@ -84,41 +80,3 @@ function LoginComponent({ setClientData }) {
 }
 
 export default LoginComponent;
-
-/*
-FILE STRUCTURE:
- client
-  - /src
-    - index.html
-    - index.js
-
-    - /assets
-      - Ducky.pngs
-      - login.scss
-      - waves.svg
-
-    - /components
-      - Login Component
-      - login.scss
-      - /Desktop
-        - Desktop Component
-         ////- Ducky
-        - Fidget Spinner
-        - Timer
-        - Notes
-        - Resources/ Study Resources
-
-*/
-
-// export default function App() {
-//   return (
-//     <BrowserRouter>
-//       <Routes>
-//         localhost:8000/
-//         <Route index element={<Desktop />} />
-//         localhost:8000/login
-//         <Route path='/login' element={<Login />} />
-//       </Routes>
-//     </BrowserRouter>
-//   )
-// }

@@ -5,34 +5,14 @@ import './assets/App.scss';
 import LoginComponent from './LoginComponent.jsx';
 import Notes from './Notes.jsx';
 import Desktop from './Desktop.jsx';
-import Resource from './Resources.jsx';
 import Ducky from './Ducky.jsx';
-import ResourceNotepad from './ResourceNotepad.jsx';
 import FidgetSpinner from './FidgetSpinner.jsx'
 
-function App() {
+function App({ clientDataObject }) { // clientDataObject -> {user: {username: "hello", duckColor: "yellow"}, notes: []}
   // handleLoginDialogClose();
 
   const [notes, addNote] = useState();
-
-  const handleResourceClose = () => {
-    addNote();
-  };
-
-  const handleResourceOpen = (event) => {
-    // fetch request made on click to backend ->
-    // needs noteID?
-    event.preventDefault();
-    addNote(<ResourceNotepad handleResourceClose={handleResourceClose} />);
-  };
-
-  const handleResourceClick = (event) => {
-    event.preventDefault();
-    console.log(event);
-    addNote();
-  };
-  // https://allinworld99.blogspot.com/2016/05/create-simple-notepad-using-javascript.html
-
+  const [totalNotes, setTotalNotes] = useState(clientDataObject.notes);
   // Customization Modal State
   const [ customWindow, setCustomWindow ] = useState(false);
 
@@ -169,42 +149,13 @@ function App() {
   }
 
   return (
-  /*
-    <>
-      <div className="loginContainer loginContainerBorder">
-        <LoginComponent
-    handleCreateUser={handleCreateUser}
-    handleLoginUser={handleLoginUser}
-    clientDataObject={clientDataObject}
-    setClientData={setClientData}
-        />              { <createDesktop account=> }
-        { <function createDesktop => (props) => if account
-        !== {} return <Desktop account=accoutndata />> }
-
-      </div>
-      <div className="waveBackground" />
-    </>
-
-  render() {
-    const isLoggedIn = this.state.isLoggedIn;
-    let button;
-    if (isLoggedIn) {
-      button = <LogoutButton onClick={this.handleLogoutClick} />;
-    } else {
-      button = <LoginButton onClick={this.handleLoginClick} />;
-    }
-    return (
-      <div>
-        <Greeting isLoggedIn={isLoggedIn} />{button}</div>
-    );
-  }    */
-
     // INTERFACE
     <main>
       <header>
         <div id="hero"><p>Study With Me</p></div>
         <div id="user">
-          <p>Pink Fairy Armadillo</p>
+          {/* <p>Pink Fairy Armadillo</p> */}
+          <p>{ clientDataObject.user.username }</p>
           <img id="userphoto" src="https://cdn.donmai.us/original/11/3d/113df6ccf7a23bfc9bf47e850a229159.jpg" alt="PFA" />
           <span className="material-symbols-rounded" onClick={() => {setCustomWindow(true)}}>settings</span>
         </div>
@@ -212,7 +163,9 @@ function App() {
 
       <section id="layout">
         <div id="navigation">
-          <Notes />
+          {/* <Notes totalNotes={totalNotes}  notes={clientDataObject.notes} /> */}
+          {console.log(totalNotes)}
+          <Notes notes={totalNotes} />
 
           <div id="resourceLayout">
             <ul>Resources</ul>
@@ -220,21 +173,27 @@ function App() {
             <div id="personalResourcesContainer">
               <li><a href="https://react.dev/reference/react" onClick={handleResourceClick1}>Intro to React Hooks</a></li>
               <li><a href="https://www.mongodb.com/docs/atlas/" onClick={handleResourceClick1}>MongoDB Atlas</a></li>
-              <li><a href="https://flexboxfroggy.com/" onClick={handleResourceClick1}>Flexbox Froggy</a></li>
+              <li><a href="https://cssgrid-generator.netlify.app/" onClick={handleResourceClick1}>CSS Grid Generator</a></li>
             </div>
             <ul>Study Resources</ul>
             <hr />
             <div id="studyResourcesContainer">
-              <li><a href="#" onClick={handleResourceOpen}>Best Study Practices</a></li>
-              <li><a href="https://www.webmd.com/balance/stress-management/stress-relief-breathing-techniques" onClick={handleResourceOpen}>Breathing Exercises</a></li>
-              <li><a href="https://www.mayoclinic.org/healthy-lifestyle/adult-health/multimedia/stretching/sls-20076525" onClick={handleResourceOpen}>Desk Stretches</a></li>
+              {/* <li><a href="#" onClick={handleResourceOpen}>Best Study Practices</a></li> */}
+              <li><a href="https://www.indeed.com/career-advice/career-development/how-to-take-break-from-studying" onClick={handleResourceClick1}>How to Take a Break from Studying</a></li>
+
+              {/* <li><a href="https://www.webmd.com/balance/stress-management/stress-relief-breathing-techniques" onClick={handleResourceOpen}>Breathing Exercises</a></li> */}
+              <li><a href="https://www.webmd.com/balance/stress-management/stress-relief-breathing-techniques" onClick={handleResourceClick1}>Breathing Exercises</a></li>
+
+              {/* <li><a href="https://www.mayoclinic.org/healthy-lifestyle/adult-health/multimedia/stretching/sls-20076525" onClick={handleResourceOpen}>Desk Stretches</a></li> */}
+              <li><a href="https://www.healthline.com/health/deskercise" onClick={handleResourceClick1}>Desk Stretches</a></li>
+
             </div>
           </div>
 
         </div>
 
         <div id="desktop">
-          <Desktop customizationOptions={customizationOptions} notes={notes} duckyVisual={duckyVisual} resourceURL={resourceURL} resourceWindow={resourceWindow} setResourceWindow={setResourceWindow}/>
+          <Desktop customizationOptions={customizationOptions} setTotalNotes={ setTotalNotes } notes={clientDataObject.notes} duckyVisual={duckyVisual} resourceURL={resourceURL} resourceWindow={resourceWindow} setResourceWindow={setResourceWindow} username={clientDataObject.user.username}/>
         </div>
       </section>
 
@@ -293,9 +252,10 @@ function App() {
                   <option value="bottomright">Bottom Right</option>
                 </select> 
               </div> */}
-            </div>
           </div>
-        )}
+          </div>
+      )}
+      <div className="waveBackground" />
     </main>
   );
 }

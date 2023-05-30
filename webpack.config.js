@@ -17,6 +17,11 @@ module.exports = {
         router: () => 'http://localhost:1234',
         logLevel: 'debug',
       },
+      '/notes': {
+        target: 'http://localhost:8080/',
+        router: () => 'http://localhost:1234',
+        logLevel: 'debug',
+      },
     },
   },
   plugins: [

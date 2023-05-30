@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './assets/App.scss';
 
-function Notepad() {
+function Notepad({ username, setTotalNotes }) {
+  const titleRef = useRef(null)
+  const noteRef = useRef(null)
+  
   const useInput = init => {
     const [ value, setValue ] = useState(init);
     const onChange = e => {
@@ -13,27 +16,31 @@ function Notepad() {
   const [ content, setNoteBody ] = useInput('');
 
   const saveNote = () => {
+    
     const body = {
-      title,
-      content,
+      title: titleRef.current.value,
+      content: noteRef.current.value,
       username
     }
+
+    console.log(body) // - > {title: "", content: "", username: "hello"}
 
     fetch('/notes/create', {
       method: 'POST',
       headers: {
-        'Content-Type': 'Application/JSON'
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify(body)
     })
       .then(resp => resp.json())
       .then((data) => {
-        console.log(data);
-        window.location.reload();
+        console.log(data); // -> note and notes
+        setTotalNotes(data.notes);
+        // window.location.reload();
       })
-      .then(() => {
-        props.history.push('/');
-      })
+      // .then(() => {
+      //   props.history.push('/');
+      // })
       .catch(err => console.log('saveNote fetch /notes/create: ERROR: ', err));
   }
 
@@ -43,8 +50,8 @@ function Notepad() {
 
       {/* <input type='text' placeholder='Note Title' id='noteTitle' value={title} required></input> */}
       {/* <textarea type='text' placeholder='Jot some notes!' id='noteBody' rows='44' cols='54' value={content} required></textarea> */}
-      <input type='text' placeholder='Note Title' id='noteTitle' required></input>
-      <textarea type='text' placeholder='Jot some notes!' id='noteBody' rows='44' cols='54' required></textarea>
+      <input type='text' placeholder='Note Title' ref = {titleRef} id='noteTitle' required></input>
+      <textarea type='text' placeholder='Jot some notes!' ref={noteRef} id='noteBody' rows='44' cols='54' required></textarea>
 
 
       <button onClick={() => saveNote()}>save</button>
