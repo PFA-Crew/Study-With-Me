@@ -22,11 +22,11 @@ body {
 }
 
 #root {
-    height: 100%;
+    // height: 100%;
     width: 100%;
     display: flex;
-    // justify-content: center;
-    // align-items: center;
+    justify-content: center;
+    align-items: center;
 }
 
 .waveBackground {
@@ -114,3 +114,11 @@ body {
 .loginContainerBorder { background-image: repeating-linear-gradient(0deg, #e4e4e4, #e4e4e4 12px, transparent 12px, transparent 31px, #e4e4e4 31px), repeating-linear-gradient(90deg, #e4e4e4, #e4e4e4 12px, transparent 12px, transparent 31px, #e4e4e4 31px), repeating-linear-gradient(180deg, #e4e4e4, #e4e4e4 12px, transparent 12px, transparent 31px, #e4e4e4 31px), repeating-linear-gradient(270deg, #e4e4e4, #e4e4e4 12px, transparent 12px, transparent 31px, #e4e4e4 31px); background-size: 6px calc(100% + 31px), calc(100% + 31px) 6px, 6px calc(100% + 31px) , calc(100% + 31px) 6px; background-position: 0 0, 0 0, 100% 0, 0 100%; background-repeat: no-repeat; animation: borderAnimation 1s infinite linear; }
 
 @keyframes borderAnimation { from { background-position: 0 0, -31px 0, 100% -31px, 0 100%; } to { background-position: 0 -31px, 0 0, 100% 0, -31px 100%; } } 
+
+.loginPadding {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    justify-content: center;
+    align-items: center;
+}
