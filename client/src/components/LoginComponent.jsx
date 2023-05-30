@@ -16,7 +16,7 @@ function LoginComponent({ setClientData }) {
         body: JSON.stringify(createUserData),
       });
       const data = await fetchResponse.json();
-      console.log(data);
+      setClientData(data)
       return data;
     } catch (error) {
       // handle error
@@ -39,8 +39,7 @@ function LoginComponent({ setClientData }) {
         body: JSON.stringify(loginUserData),
       });
       const data = await fetchResponse.json();
-      // figure out how to populate state from this response
-      console.log(data);
+      setClientData(data)
       return data;
 
       // setLayouts(data);
@@ -56,12 +55,12 @@ function LoginComponent({ setClientData }) {
     const buttonClicked = event.nativeEvent.submitter.id; // is there a better way to do this?
     const formData = new FormData(event.target);
     const userDataObject = Object.fromEntries(formData); // {username: hello, password: world}
-    if (buttonClicked === 'loginButton') setClientData(handleLoginUser(userDataObject));
-    else if (buttonClicked === 'createButton') setClientData(handleCreateUser(userDataObject));
+    if (buttonClicked === 'loginButton') handleLoginUser(userDataObject);
+    else if (buttonClicked === 'createButton') handleCreateUser(userDataObject);
   };
 
   return (
-    <>
+    <div className='loginPadding'>
       <div className="loginContainer loginContainerBorder">
         <form onSubmit={submitForm}>
           <label htmlFor="username">
@@ -80,7 +79,7 @@ function LoginComponent({ setClientData }) {
         </form>
       </div>
       <div className="waveBackground" />
-    </>
+    </div>
   );
 }
 
