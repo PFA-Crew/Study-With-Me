@@ -75,6 +75,7 @@ userController.verifyUser = async (req, res, next) => {
     return next({
       log: `Error in userController.verifyUser${err}`,
       message: {
+        log: `Error in userController.verifyUser${err}`,
         err: 'An error occured, check server logs',
       },
     });
