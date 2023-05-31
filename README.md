@@ -6,58 +6,34 @@
 > fidget spinner to help soothe the physical symtpoms of stress and anxiety, and
 > so much more!
 
-HUSKY HUSKY HUSKY HUSKY HUSKY HUSKY HUSKY HUSKY HUSKY HUSKY HUSKY HUSKY HUSKY
-HUSKY HUSKY HUSKY HUSKY HUSKY HUSKY HUSKY
-<https://www.gitkraken.com/blog/husky-git-hooks>
-<https://www.freecodecamp.org/news/how-to-add-commit-hooks-to-git-with-husky-to-automate-code-tasks/>
-<https://typicode.github.io/husky/> HUSKY HUSKY HUSKY HUSKY HUSKY HUSKY HUSKY
-HUSKY HUSKY HUSKY HUSKY HUSKY HUSKY HUSKY HUSKY HUSKY HUSKY HUSKY HUSKY HUSKY
-HUSKY
-
 ## Getting Started
-
--
 
 ### Prerequisites
 
--
-
 ### Installing
 
--
+1. `npm install` - Initialize and install npm packages
+2. `npm run prepare` - Initialize and prepare Husky scripts. Automatically sets
+   `chmod ug+x` permissions on Husky scripts.
 
 ## Running the tests
 
--
+- In non-"CI" (i.e. non-production) modes, pre-commit hooks act as a branch name
+  linter and automatically formats all staged files with Prettier. Branch names
+  must comform to the following regex:
+
+```js
+/^((bug|docs|fix|feat|merge|test|wip)\/[a-zA-Z0-9\-]+)$/;
+```
 
 ### Break down into end to end tests
 
--
-
 ### And coding style tests
-
--
 
 ## Deployment
 
--
-
-## Built With
-
-- [Resource Name](Resource URL) - Resource description
-
-## Contributing
-
-- Please read [CONTRIBUTING.md](#) for details on our code of conduct, and the
-  process for submitting pull requests.
-
-## Versioning
-
--
-
 ## Authors
 
-- **Connor Dillon** - _Developer_ - [connoro7](https://github.com/connoro7)
 - See also the list of [contributors](REPO-BASE-URL/contributors) who
   participated in this project.
 
@@ -92,32 +68,3 @@ TODO:
 - App.jsx: Ducky will overpower any existing widget in position (as it should?
   but maybe not?) 🤷‍♀️
 - Feature to add resources
-
-```js
-- GET
-  - 200 OK
-
-- PUT (create or overwrite, idempotently)
-  - 201 Created
-  - 204 No Content
-
-- POST (create or overwrite, not idempotently)
-  - 201 Created
-  - 204 No Content
-
-- DELETE
-  - 202 Accepted   (recieved, pending)
-  - 204 No Content (done, no further info)
-  - 200 OK         (done, with response message)
-
-- PATCH (modify, (is or is not) idempotent)
-  - 200 OK         (done, with response)
-  - 204 No Content (done, no response)
-  - Notes:
-    - server must advertise PATCH support
-    - EXPLICIT: add PATCH to
-      - Allow https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Allow
-    - or -
-      - ACAM (if CORS) headers  https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Patch
-    - IMPLICIT: Accept-Patch header
-```
