@@ -9,7 +9,7 @@ const sessionController = require('../controllers/sessionController');
 router.post(
   '/login',
   userController.verifyUser,
-  notesController.getUserNotes,
+  // notesController.getUserNotes,
   cookieController.setSSIDCookie,
   sessionController.startSession,
   (req, res) => {

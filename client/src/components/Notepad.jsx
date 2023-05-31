@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './assets/App.scss';
 
-function Notepad({ username, totalNotes, setTotalNotes }) {
+function Notepad({ totalNotes, setTotalNotes }) {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
@@ -16,13 +16,12 @@ function Notepad({ username, totalNotes, setTotalNotes }) {
         body: JSON.stringify({
           title,
           content,
-          username,
         }),
       });
 
       // Update state (located in MainContainer)
       const newNote = { title, content };
-      setTotalNotes(totalNotes.push(newNote));
+      setTotalNotes(totalNotes.push(newNote)); //update totalNotes to the newer version
 
       console.log('Created a new note.');
       console.log('totalNotes after save button click', totalNotes);

@@ -8,7 +8,8 @@ const notesController = {};
 notesController.createNote = async (req, res, next) => {
   try {
     // Destructure title, content and username from our request body
-    const { title, content, username } = req.body;
+    const { title, content } = req.body;
+    const { username } = res.locals;
 
     const User = await Users.findOne({ username });
     // get _id of user to use as reference on note
@@ -28,7 +29,7 @@ notesController.createNote = async (req, res, next) => {
 // The username must be in the request body
 notesController.getNotesByUsername = async (req, res, next) => {
   try {
-    const { username } = req.body;
+    const { username } = res.locals;
     const User = await Users.findOne({ username });
 
     if (!User) throw new Error(`User ${username} not found.`);

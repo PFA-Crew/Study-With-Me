@@ -35,7 +35,7 @@ function MainContainer({ clientDataObject, setClientData }) {
       }
     };
     fetchNotes();
-  }, [totalNotes]);
+  }, []);
 
   console.log('totalNotes in Maincontainer', totalNotes);
   console.log('clientDataObject', clientDataObject);
@@ -189,7 +189,7 @@ function MainContainer({ clientDataObject, setClientData }) {
         </div>
         <div id='user'>
           {/* <p>Pink Fairy Armadillo</p> */}
-          <p>{clientDataObject.user.username}</p>
+          <p>{username}</p>
           <img
             id='userphoto'
             src='https://cdn.donmai.us/original/11/3d/113df6ccf7a23bfc9bf47e850a229159.jpg'
@@ -291,7 +291,7 @@ function MainContainer({ clientDataObject, setClientData }) {
             resourceURL={resourceURL}
             resourceWindow={resourceWindow}
             setResourceWindow={setResourceWindow}
-            username={clientDataObject.user.username}
+            username={username}
             // noteContent={noteContent}
           />
         </div>
