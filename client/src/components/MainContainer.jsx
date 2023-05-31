@@ -15,6 +15,7 @@ function MainContainer({ clientDataObject, setClientData }) {
 
   // State to keep:
   const [totalNotes, setTotalNotes] = useState([]);
+  const [username, setUsername] = useState('6476a45aab9f3f4a421de589');
 
   useEffect(() => {
     const fetchNotes = async () => {
@@ -295,7 +296,11 @@ function MainContainer({ clientDataObject, setClientData }) {
           />
         </div>
         <div className='cell' id='cell6'>
-          <Notepad noteContent={noteContent} username={username} />
+          <Notepad
+            username={username}
+            totalNotes={totalNotes}
+            setTotalNotes={setTotalNotes}
+          />
         </div>
       </section>
 
