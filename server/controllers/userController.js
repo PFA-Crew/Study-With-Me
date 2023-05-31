@@ -33,15 +33,12 @@ userController.verifyUser = async (req, res, next) => {
     }
 
     // Find our user in our mongoDB document based off username
-    const user = await Users.findOne({ username });
+    const foundUser = await Users.findOne({ username });
 
     // If user was found, compare the password our user typed in with the hashed password we have stored for the user
-    if (user && (await user.matchPassword(password))) {
-      res.locals.user = {
-        username: user.username,
-        notes: user.notes,
-        duckColor: user.duckColor,
-      };
+    if (foundUser && (await foundUser.matchPassword(password))) {
+      res.locals.userId = foundUser._id;
+      res.locals.username = foundUser.username;
       return next();
     } else {
       throw new Error('wrong login credentials');
