@@ -7,24 +7,24 @@ const notesController = require('../controllers/notesController');
 const cookieController = require('../controllers/cookieController');
 const sessionController = require('../controllers/sessionController');
 
-// Route to handle creating a new user
+// Login a user
 router.post(
-  '/create',
-  userController.createUser,
-  sessionController.startSession,
+  '/login',
+  userController.verifyUser,
+  notesController.getUserNotes,
   cookieController.setSSIDCookie,
+  sessionController.startSession,
   (req, res) => {
     res.status(201).json(res.locals);
   },
 );
 
-// Route to find and verify a user
+// Create a new user
 router.post(
-  '/login',
-  userController.verifyUser,
-  notesController.getUserNotes,
-  sessionController.startSession,
+  '/create',
+  userController.createUser,
   cookieController.setSSIDCookie,
+  sessionController.startSession,
   (req, res) => {
     res.status(201).json(res.locals);
   },
