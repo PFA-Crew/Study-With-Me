@@ -1,5 +1,4 @@
-const bcrypt = require('bcryptjs');
-const { Users } = require('../models/userModel');
+const Users = require('../models/userModel');
 
 const userController = {};
 
@@ -44,7 +43,7 @@ userController.verifyUser = async (req, res, next) => {
       res.locals.user = {
         username: user.username,
         notes: user.notes,
-        duckColor: user.duckColor
+        duckColor: user.duckColor,
       };
       return next();
     } else {
@@ -53,7 +52,7 @@ userController.verifyUser = async (req, res, next) => {
         status: 401,
         message: { err: 'wrong login credentials' },
       });
-  }
+    }
   } catch (err) {
     // Handle error
     return next({
