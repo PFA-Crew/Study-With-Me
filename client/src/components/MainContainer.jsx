@@ -15,30 +15,11 @@ function MainContainer({ clientDataObject, setClientData }) { // clientDataObjec
 
   // State to keep:
   const [totalNotes, setTotalNotes] = useState([]);
-  const [cookies, setCookies] = useState('');
-  console.log('Document.cookie:', document.cookie);
-
-  //useEffect function here to setCookie to the current cookieId
-  // useEffect(() => {
-  //   // Function to retrieve the user ID from cookies
-  //   const getUserIdFromCookies = () => {
-  //     const userIdFromCookies = document.cookie
-  //       .split('; ')
-  //       .find(row => row.startsWith('userId='))
-  //       ?.split('=')[1];
-
-  //     return userIdFromCookies || '';
-  //   };
-
-  //   // Set the user ID state variable with the value from cookies
-  //   const idFromCookies = getUserIdFromCookies();
-  //   setUserId(idFromCookies);
-  // }, []);
 
   useEffect(() => {
     const fetchNotes = async () => {
       try{
-        const updatedNotes = await fetch(`/notes${cookie}`, {
+        const updatedNotes = await fetch('/notes', {
           method: "GET",
           headers: {"Content-Type": "application/json"},
         });
@@ -58,10 +39,6 @@ function MainContainer({ clientDataObject, setClientData }) { // clientDataObjec
 
 
   console.log('totalNotes in Maincontainer', totalNotes);
-
-
-
-
 
 
 
