@@ -18,4 +18,10 @@ router.patch('/update', notesController.updateNote, (req, res) => {
   res.status(200).json(res.locals.update);
 });
 
+router.delete('/delete', notesController.deleteNote, (req, res) => {
+  res.status(200).json(res.locals.deletedNote);
+});
+
 module.exports = router;
+
+
