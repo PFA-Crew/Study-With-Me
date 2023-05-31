@@ -101,4 +101,29 @@ notesController.updateNote = async (req, res, next) => {
   }
 };
 
+notesController.deleteNote = async (req, res, next) => {
+  try {
+    const { note_id } = req.body;
+
+    // Find and delete the note by its ID
+    const deletedNote = await Notes.findOneAndDelete({ _id: note_id });
+
+    if (!deletedNote) {
+      return next({
+        log: 'Note not found',
+        message: { error: 'Note not found' },
+      });
+    }
+
+    res.locals.deletedNote = deletedNote;
+    return next();
+  } catch (err) {
+    // Handle error
+    return next({
+      log: `Error in notesController.deleteNote: ${err}`,
+      message: { error: 'An error occurred, check server logs' },
+    });
+  }
+};
+
 module.exports = notesController;
