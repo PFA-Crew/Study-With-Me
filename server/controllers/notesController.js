@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
-const { Notes } = require('../models/userModel');
-const { Users } = require('../models/userModel');
+const Notes = require('../models/notesModel');
+const Users = require('../models/userModel');
 
 const notesController = {};
 

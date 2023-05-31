@@ -33,14 +33,5 @@ userSchema.pre('save', async function (next) {
 // Create our user model linking the userSchema and users document
 const Users = mongoose.model('user', userSchema);
 
-// Schema for our notes document
-const noteSchema = new Schema({
-  owner_id: { type: Schema.Types.ObjectId, ref: 'user' },
-  title: String,
-  content: String,
-});
 
-// Create our notes model linking the notesSchema and notes document
-const Notes = mongoose.model('note', noteSchema);
-
-module.exports = { Users, Notes };
+module.exports = Users;
