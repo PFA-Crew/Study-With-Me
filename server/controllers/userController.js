@@ -4,22 +4,20 @@ const userController = {};
 
 // User creator middleware
 userController.createUser = async (req, res, next) => {
+  const { username, password } = req.body;
   try {
-    // Deconstruct username and password from our request body
-    const { username, password } = req.body;
-    // Add a new user in our mongoDB document
-    const createdUser = await Users.create({
-      username,
-      password,
-    });
+    if (!username || !password) {
+      throw new Error('Must include username, email, and password');
+    }
+    if (await Users.findOne({ username })) {
+      throw new Error('username is already taken');
+    }
 
-    // Save our new user to response locals to send to our frontend
-    res.locals = createdUser;
-
-    // Move to our next middleware
-    return next();
+    const newUser = await Users.create({ username, password });
+    res.locals.userId = newUser._id;
+    res.locals.username = newUser.username;
+    next();
   } catch (err) {
-    // Handle error
     return next({
       log: `Error in userController.createUser${err}`,
       message: {
@@ -32,8 +30,12 @@ userController.createUser = async (req, res, next) => {
 // User verification middleware
 userController.verifyUser = async (req, res, next) => {
   try {
-    // Deconstruct username and password from our request body
     const { username, password } = req.body;
+    if (!username || !password) {
+      throw new Error(
+        'Request is missing one of the following fields: usernameOrEmail, password',
+      );
+    }
 
     // Find our user in our mongoDB document based off username
     const user = await Users.findOne({ username });
@@ -48,13 +50,12 @@ userController.verifyUser = async (req, res, next) => {
       return next();
     } else {
       return next({
-        log: 'Bad Username', // displays only to server
+        log: 'Wrong login credentials',
         status: 401,
-        message: { err: 'wrong login credentials' },
+        message: { err: 'Wrong login credentials' },
       });
     }
   } catch (err) {
-    // Handle error
     return next({
       log: `Error in userController.verifyUser${err}`,
       message: {
