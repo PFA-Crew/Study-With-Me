@@ -30,6 +30,29 @@ notesController.createNote = async (req, res, next) => {
   }
 };
 
+// Get all notes from a user
+// The username must be in the request body
+notesController.getNotesByUsername = async (req, res, next) => {
+  try {
+    const { username } = req.body;
+    const User = await Users.findOne({ username });
+
+    if (!User) throw new Error(`User ${username} not found.`);
+
+    const { _id: owner_id } = User;
+    res.locals.notes = await Notes.find({ owner_id });
+    return next();
+  } catch (err) {
+    // Handle error
+    return next({
+      log: `Error in notesController.getNotesByUsername${err}`,
+      message: {
+        err: 'An error occured, check server logs',
+      },
+    });
+  }
+};
+
 // Get a single note from a user
 notesController.getNote = async (req, res, next) => {
   try {
@@ -83,7 +106,7 @@ notesController.updateNote = async (req, res, next) => {
     const updatedNote = await Notes.findOneAndUpdate(
       { _id: note_id },
       { title: newTitle, content: newContent },
-      { new: true },
+      { new: true }
     );
 
     res.locals.update = updatedNote;
