@@ -1,0 +1,49 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# PS1 Colorizer Vars
+Color_Off=$'\033[0m'
+Red=$'\033[0;31m'              # Red
+Green=$'\033[0;32m'            # Green
+Yellow=$'\033[0;33m'           # Yellow
+Blue=$'\033[0;34m'             # Blue
+Purple=$'\033[0;35m'           # Purple
+Cyan=$'\033[0;36m'             # Cyan
+White=$'\033[0;37m'            # White
+
+# Exit if in production
+# More specifically, most Continuous Integration Servers set a CI environment variable. 
+# The following detects if this script is running in a CI, early exit 
+[ -n "$CI" ] && exit 0
+
+# Grab current name of branch
+LOCAL_BRANCH_NAME="$(git rev-parse --abbrev-ref HEAD)"
+
+# Branch name regex match
+VALID_BRANCH_REGEX='^((bug|docs|fix|feat|merge|test|wip)\/[a-zA-Z0-9\-]+)$'
+
+ERROR_MSG="\n${Red}There is something wrong with your branch name.\nBranch names must adhere to this contract:${Color_Off}\n\n${Yellow}$VALID_BRANCH_REGEX\n\n${Red}Due to this conflict, your commit has been rejected. Please rename your branch to a valid name and try again.${Color_Off}"
+
+FIX_MSG="${Yellow}You can rename your current working branch with:\ngit branch --move \$OLD_NAME \$NEW_NAME\ngit push --set-upstream \$REMOTE \$NEW_NAME\ngit branch -a\n\nAnd then remove the old branch on remote:\ngit push \$REMOTE --delete \$OLD_NAME\n${Color_Off}"
+
+# Rejects commit if current branch name does not match regex pattern
+if [[ ! $LOCAL_BRANCH_NAME =~ $VALID_BRANCH_REGEX ]]; then
+    # Print error
+    echo "$ERROR_MSG\n\n"
+    # Optional: Error fix suggestion
+    echo "$FIX_MSG"
+    # Abort commit
+    exit 1
+fi
+
+FILES=$(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g')
+[ -z "$FILES" ] && exit 0
+
+# Prettify all selected files
+echo "$FILES" | xargs ./node_modules/.bin/prettier --ignore-unknown --write
+
+# Add back the modified/prettified files to staging
+echo "$FILES" | xargs git add
+
+
+exit 0
