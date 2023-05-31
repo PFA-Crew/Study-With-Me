@@ -18,12 +18,14 @@ function Notes({totalNotes, setNoteContent, setTotalNotes}) {
   //   noteElements = totalNotes.map((note, i) => <li key={i} >{note.title}</li>
   // );
   // }, [totalNotes])
+
   // function displayNote(noteIndex) {
   //   setNoteContent({ title: totalNotes[noteIndex].title, content: totalNotes[noteIndex].content})
   // }
-  function displayNote(noteIndex) {
-    setTotalNotes({ title: totalNotes[noteIndex].title, content: totalNotes[noteIndex].content})
-  }
+
+  // function displayNote(noteIndex) {
+  //   setTotalNotes({ title: totalNotes[noteIndex].title, content: totalNotes[noteIndex].content})
+  // }
   const noteElements = totalNotes.map((note, i) => (
     <li key={i} onClick={() => displayNote(i)}>{note.title}</li>
   ))

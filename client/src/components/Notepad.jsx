@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './assets/App.scss';
 
-function Notepad({ username, setTotalNotes, noteContent }) {
+function Notepad({ username }) {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
@@ -26,23 +26,23 @@ function Notepad({ username, setTotalNotes, noteContent }) {
   };
 
   return (
-    <div className="note">
+    <div className='note'>
       <input
-        id="noteTitle"
-        type="text"
-        placeholder="Note Title"
+        id='noteTitle'
+        type='text'
+        placeholder='Note Title'
         value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        onChange={e => setTitle(e.target.value)}
         required
       ></input>
       <textarea
-        id="noteBody"
-        type="text"
-        placeholder="Jot some notes!"
-        rows="44"
-        cols="54"
+        id='noteBody'
+        type='text'
+        placeholder='Jot some notes!'
+        rows='44'
+        cols='54'
         value={content}
-        onChange={(e) => setContent(e.target.value)}
+        onChange={e => setContent(e.target.value)}
         required
       ></textarea>
       <button onClick={saveNote}>save</button>
