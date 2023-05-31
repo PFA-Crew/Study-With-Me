@@ -12,7 +12,60 @@ function MainContainer({ clientDataObject, setClientData }) { // clientDataObjec
   // handleLoginDialogClose();
   const [noteContent, setNoteContent] = useState( { title: '', content: '' } );
   const [notes, addNote] = useState([]);
-  const [totalNotes, setTotalNotes] = useState(clientDataObject.notes);
+
+  // State to keep:
+  const [totalNotes, setTotalNotes] = useState([]);
+  const [cookies, setCookies] = useState('');
+  console.log('Document.cookie:', document.cookie);
+
+  //useEffect function here to setCookie to the current cookieId
+  // useEffect(() => {
+  //   // Function to retrieve the user ID from cookies
+  //   const getUserIdFromCookies = () => {
+  //     const userIdFromCookies = document.cookie
+  //       .split('; ')
+  //       .find(row => row.startsWith('userId='))
+  //       ?.split('=')[1];
+
+  //     return userIdFromCookies || '';
+  //   };
+
+  //   // Set the user ID state variable with the value from cookies
+  //   const idFromCookies = getUserIdFromCookies();
+  //   setUserId(idFromCookies);
+  // }, []);
+
+  useEffect(() => {
+    const fetchNotes = async () => {
+      try{
+        const updatedNotes = await fetch(`/notes${cookie}`, {
+          method: "GET",
+          headers: {"Content-Type": "application/json"},
+        });
+        if(!updatedNotes.ok){
+          throw new Error('request for updated notes failed');
+        }
+        const results = await updatedNotes.json();
+        console.log('results in fetchNotes()', results)
+        setTotalNotes(results);
+      }
+      catch(err){
+      console.log('error in fetchNotes')
+      }
+    };
+    fetchNotes();
+  }, [totalNotes])
+
+
+  console.log('totalNotes in Maincontainer', totalNotes);
+
+
+
+
+
+
+
+
   // Customization Modal State
   const [ customWindow, setCustomWindow ] = useState(false);
 
