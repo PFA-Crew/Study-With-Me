@@ -4,7 +4,7 @@ import './assets/App.scss';
 function Notepad({ username, setTotalNotes, noteContent }) {
   const titleRef = useRef(null)
   const noteRef = useRef(null)
-  
+
   const useInput = init => {
     const [ value, setValue ] = useState(init);
     const onChange = e => {
@@ -15,8 +15,9 @@ function Notepad({ username, setTotalNotes, noteContent }) {
   const [ title, setNoteTitle ] = useInput('');
   const [ content, setNoteBody ] = useInput('');
 
+
   const saveNote = () => {
-    
+
     const body = {
       title: titleRef.current.value,
       content: noteRef.current.value,
