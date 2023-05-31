@@ -1,7 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './assets/App.scss';
 
-function Notes({totalNotes, setNoteContent}) {
+function Notes({totalNotes, setNoteContent, setTotalNotes}) {
+ //make a get request to Notes to get all recent notes
+  // update state of notes with useEffect()
+  //render udated notes with state
+  const getNotes = async () => {
+    const results = await fetch('/notes');
+
+  }
+
   // Populate Notes Container with saved notes
   // let noteElements;
   // console.log(totalNotes);
@@ -16,10 +24,6 @@ function Notes({totalNotes, setNoteContent}) {
   const noteElements = totalNotes.map((note, i) => (
     <li key={i} onClick={() => displayNote(i)}>{note.title}</li>
   ))
-  const getNotes = async () => {
-    const results = await fetch('/notes/display');
-
-  }
 
   return (
     <div id="noteLayout">
