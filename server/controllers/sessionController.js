@@ -2,31 +2,35 @@ const Session = require('../models/sessionModel');
 
 const sessionController = {};
 
-// Check the database to verify the if the user currently has a session
 sessionController.isLoggedIn = async (req, res, next) => {
-  const cookieId = req.cookies.ssid;
   try {
-    const user = await Session.findOne({ cookieId });
-    if (user) return res.json({ message: `${user.username} is logged in!` });
-    return res.sendStatus(400);
-  } catch (err) {
-    next(err);
+    // get the username, and assign it to res.locals.username
+    const foundSession = await Session.findOne({ cookieId: req.cookies.ssid });
+    console.log('foundSession in isLoggedIn session controller', foundSession);
+    if (!foundSession) throw new Error('Session expired or does not exist');
+    else {
+      res.locals.username = foundSession.username;
+      return next();
+    }
+  } catch (error) {
+    console.log(error);
+    res.redirect('/'); // redirect to the login page
   }
 };
 
-// Start a new session or refresh and existing session
 sessionController.startSession = async (req, res, next) => {
   const cookieId = res.locals.userId;
+  const username = res.locals.username;
+
   try {
-    const session = await Session.findOne({ cookieId });
-    if (session) {
-      // refresh the current session
-      console.log('refreshing the current session');
-      session.createdAt = Date.now();
+    const foundSession = await Session.findOne({ cookieId });
+
+    if (foundSession) {
+      console.log('refreshing the current session...');
+      foundSession.createdAt = Date.now();
     } else {
-      // create a new session
-      console.log('creating a new session');
-      await Session.create({ cookieId });
+      console.log('creating a new session...');
+      await Session.create({ cookieId, username });
     }
     return next();
   } catch (err) {
