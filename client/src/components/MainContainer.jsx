@@ -8,10 +8,10 @@ import Desktop from './Desktop.jsx';
 import Ducky from './Ducky.jsx';
 import FidgetSpinner from './FidgetSpinner.jsx'
 
-function App({ clientDataObject }) { // clientDataObject -> {user: {username: "hello", duckColor: "yellow"}, notes: []}
+function MainContainer({ clientDataObject, setClientData }) { // clientDataObject -> {user: {username: "hello", duckColor: "yellow"}, notes: []}
   // handleLoginDialogClose();
   const [noteContent, setNoteContent] = useState( { title: '', content: '' } );
-  const [notes, addNote] = useState();
+  const [notes, addNote] = useState([]);
   const [totalNotes, setTotalNotes] = useState(clientDataObject.notes);
   // Customization Modal State
   const [ customWindow, setCustomWindow ] = useState(false);
@@ -56,7 +56,7 @@ function App({ clientDataObject }) { // clientDataObject -> {user: {username: "h
   const [ duckyPosition, setDuckyPosition ] = useState('topleft')
   const handleDuckyPosition = (event) => {
     const duckySpotSet = event.target.value;
-  
+
     if (duckySpotSet === "topleft") {
       const updatedOptions = customizationOptions.map((element, index) => {
         if (element === 'ducky') return '';
@@ -164,7 +164,7 @@ function App({ clientDataObject }) { // clientDataObject -> {user: {username: "h
       <section id="layout">
         <div id="navigation">
           {/* <Notes totalNotes={totalNotes}  notes={clientDataObject.notes} /> */}
-          <Notes setNoteContent={setNoteContent} notes={totalNotes} />
+          <Notes setTotalNotes={setTotalNotes} setNoteContent={setNoteContent} totalNotes={totalNotes} />
 
           <div id="resourceLayout">
             <ul>Resources</ul>
@@ -214,7 +214,7 @@ function App({ clientDataObject }) { // clientDataObject -> {user: {username: "h
                   <option value="sailor">Sailor</option>
                   <option value="crown">Crown</option>
                   <option value="constable">Constable</option>
-                </select> 
+                </select>
               </div>
               <div>
                 <label>Lucky Ducky Position:</label>
@@ -223,7 +223,7 @@ function App({ clientDataObject }) { // clientDataObject -> {user: {username: "h
                   <option value="topright">Top Right</option>
                   <option value="bottomleft">Bottom Left</option>
                   <option value="bottomright">Bottom Right</option>
-                </select> 
+                </select>
               </div>
               <div>
                 <label>Pomodoro Timer Disabled: </label><input type="checkbox" id="pomCheck" defaultChecked={timerEnabled} onChange={timerSetter}></input>
@@ -236,7 +236,7 @@ function App({ clientDataObject }) { // clientDataObject -> {user: {username: "h
                   <option value="topright">Top Right</option>
                   <option value="bottomleft">Bottom Left</option>
                   <option value="bottomright">Bottom Right</option>
-                </select> 
+                </select>
               </div> */}
               <div>
                 <label>Fidget Spinner Disabled: </label><input type="checkbox" id="fidgetCheck" defaultChecked={fidgetEnabled} onChange={fidgetSetter}></input>
@@ -249,7 +249,7 @@ function App({ clientDataObject }) { // clientDataObject -> {user: {username: "h
                   <option value="topright">Top Right</option>
                   <option value="bottomleft">Bottom Left</option>
                   <option value="bottomright">Bottom Right</option>
-                </select> 
+                </select>
               </div> */}
           </div>
           </div>
@@ -259,4 +259,4 @@ function App({ clientDataObject }) { // clientDataObject -> {user: {username: "h
   );
 }
 
-export default App;
+export default MainContainer;
