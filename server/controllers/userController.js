@@ -18,12 +18,7 @@ userController.createUser = async (req, res, next) => {
     res.locals.username = newUser.username;
     next();
   } catch (err) {
-    return next({
-      log: `Error in userController.createUser${err}`,
-      message: {
-        err: 'An error occured, check server logs',
-      },
-    });
+    next(err);
   }
 };
 
@@ -49,20 +44,10 @@ userController.verifyUser = async (req, res, next) => {
       };
       return next();
     } else {
-      return next({
-        log: 'Wrong login credentials',
-        status: 401,
-        message: { err: 'Wrong login credentials' },
-      });
+      throw new Error('wrong login credentials');
     }
   } catch (err) {
-    return next({
-      log: `Error in userController.verifyUser${err}`,
-      message: {
-        log: `Error in userController.verifyUser${err}`,
-        err: 'An error occured, check server logs',
-      },
-    });
+    next(err);
   }
 };
 
