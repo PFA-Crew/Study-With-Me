@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
 // Schema for our notes document
+
+const { Schema } = mongoose; 
+
 const noteSchema = new Schema({
   owner_id: { type: Schema.Types.ObjectId, ref: 'user' },
   title: String,
