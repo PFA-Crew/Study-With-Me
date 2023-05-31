@@ -1,6 +1,10 @@
+require('dotenv').config();
 const express = require('express');
 const authRouter = require('./routes/authRouter');
 const notesRouter = require('./routes/notesRouter');
+const connectDB = require('./db.js');
+
+connectDB();
 
 // Our server port
 const PORT = 1234;

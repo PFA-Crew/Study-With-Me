@@ -2,23 +2,10 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
 // pulls mongoDB URI from file only saved on the local machine
-const { MONGO_URI } = require('../config');
 
 const { Schema } = mongoose;
 
 const SALT_WORK_FACTOR = 15;
-
-// connect to our mongoDB
-mongoose
-  .connect(MONGO_URI, {
-    // options for the connect method to parse the URI
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    // sets the name of the DB that our collections are part of
-    dbName: 'Study_With_Me',
-  })
-  .then(() => console.log('Connected to Mongo DB.'))
-  .catch((err) => console.log(err));
 
 // Schema for our users document
 const userSchema = new Schema({
