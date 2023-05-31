@@ -27,6 +27,7 @@ ERROR_MSG="\n${Red}There is something wrong with your branch name.\nBranch names
 FIX_MSG="${Yellow}You can rename your current working branch with:\ngit branch --move \$OLD_NAME \$NEW_NAME\ngit push --set-upstream \$REMOTE \$NEW_NAME\ngit branch -a\n\nAnd then remove the old branch on remote:\ngit push \$REMOTE --delete \$OLD_NAME\n${Color_Off}"
 
 # Rejects commit if current branch name does not match regex pattern
+echo 'Linting branch name...';
 if [[ ! $LOCAL_BRANCH_NAME =~ $VALID_BRANCH_REGEX ]]; then
     # Print error
     echo "$ERROR_MSG\n\n"
@@ -35,15 +36,21 @@ if [[ ! $LOCAL_BRANCH_NAME =~ $VALID_BRANCH_REGEX ]]; then
     # Abort commit
     exit 1
 fi
+echo 'OK'
 
+echo 'Formatting staged files...';
+# Grab all files in staging
 FILES=$(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g')
-[ -z "$FILES" ] && exit 0
 
-# Prettify all selected files
+# If staging is empty, abort commit
+[ -z "$FILES" ] && echo 'No staged files, aborting...' && exit 0
+
+# Format all staged files with Prettier
 echo "$FILES" | xargs ./node_modules/.bin/prettier --ignore-unknown --write
 
-# Add back the modified/prettified files to staging
+echo 'Adding formatted files back to staging...';
 echo "$FILES" | xargs git add
 
+echo 'Pre-flight complete.\nCommitting...'
 
 exit 0

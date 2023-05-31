@@ -7,7 +7,9 @@
   "scripts": {
     "start": "webpack-dev-server --mode development --open --hot",
     "build": "webpack --mode production",
-    "dev": "webpack-dev-server --mode development --open --hot & nodemon server/server.js"
+    "dev": "webpack-dev-server --mode development --open --hot & nodemon server/server.js",
+    "test": "echo 'Please add tests'",
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "",
@@ -30,6 +32,7 @@
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
     "html-webpack-plugin": "^5.5.1",
+    "husky": "^8.0.0",
     "nodemon": "^2.0.22",
     "prettier": "^2.8.8",
     "sass": "^1.62.1",
