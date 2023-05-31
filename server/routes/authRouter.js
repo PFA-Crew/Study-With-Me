@@ -16,5 +16,5 @@ router.post('/create', userController.createUser, (req, res) => {
 router.post('/login', userController.verifyUser, notesController.getUserNotes, (req, res) => {
   res.status(201).json(res.locals);
 });
-
+console.log('authRouter', process.env.NODE_ENV);
 module.exports = router;
