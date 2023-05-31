@@ -20,13 +20,7 @@ notesController.createNote = async (req, res, next) => {
 
     return next();
   } catch (err) {
-    // Handle error
-    return next({
-      log: `Error in notesController.createNote${err}`,
-      message: {
-        err: 'An error occured, check server logs',
-      },
-    });
+    next(err);
   }
 };
 
@@ -43,13 +37,7 @@ notesController.getNotesByUsername = async (req, res, next) => {
     res.locals.notes = await Notes.find({ owner_id });
     return next();
   } catch (err) {
-    // Handle error
-    return next({
-      log: `Error in notesController.getNotesByUsername${err}`,
-      message: {
-        err: 'An error occured, check server logs',
-      },
-    });
+    next(err);
   }
 };
 
@@ -65,13 +53,7 @@ notesController.getNote = async (req, res, next) => {
 
     return next();
   } catch (err) {
-    // Handle error
-    return next({
-      log: `Error in notesController.getUserNotes${err}`,
-      message: {
-        err: 'An error occured, check server logs',
-      },
-    });
+    next(err);
   }
 };
 
@@ -87,13 +69,7 @@ notesController.getUserNotes = async (req, res, next) => {
 
     return next();
   } catch (err) {
-    // Handle error
-    return next({
-      log: `Error in notesController.getUserNotes${err}`,
-      message: {
-        err: 'An error occured, check server logs',
-      },
-    });
+    next(err);
   }
 };
 
@@ -106,7 +82,7 @@ notesController.updateNote = async (req, res, next) => {
     const updatedNote = await Notes.findOneAndUpdate(
       { _id: note_id },
       { title: newTitle, content: newContent },
-      { new: true }
+      { new: true },
     );
 
     res.locals.update = updatedNote;
@@ -114,13 +90,7 @@ notesController.updateNote = async (req, res, next) => {
     // Invoke next middleware
     return next();
   } catch (err) {
-    // Handle error
-    return next({
-      log: `Error in notesController.updateNote${err}`,
-      message: {
-        err: 'An error occured, check server logs',
-      },
-    });
+    next(err);
   }
 };
 
@@ -141,11 +111,7 @@ notesController.deleteNote = async (req, res, next) => {
     res.locals.deletedNote = deletedNote;
     return next();
   } catch (err) {
-    // Handle error
-    return next({
-      log: `Error in notesController.deleteNote: ${err}`,
-      message: { error: 'An error occurred, check server logs' },
-    });
+    next(err);
   }
 };
 

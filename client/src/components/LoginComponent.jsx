@@ -1,32 +1,36 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../index.scss';
 
-function LoginComponent({ setClientData }) {
-  // clientDataObject set to returned user
-  // TODO: Add visuals for wrong login information
-        // Loading gif for login
-  const handleCreateUser = async (createUserData) => {
+function LoginComponent() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate();
+
+  const handleSignup = async () => {
     try {
-      const postURL = '/auth/create';
-      const fetchResponse = await fetch(postURL, {
+      const response = await fetch('/auth/create', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(createUserData),
+        body: JSON.stringify({ username, password }),
       });
-      const data = await fetchResponse.json();
-      setClientData(data)
-      return data;
+      const data = await response.json();
+      if (data.err) {
+        setErrorMessage(data.err.message);
+      } else if (data.username) {
+        // successful sign-up, redirect to the app
+        navigate('/app');
+      }
     } catch (error) {
-      // handle error
-      console.log(error);
-      return {};
+      console.error(error);
     }
   };
 
-  const handleLoginUser = async (loginUserData) => {
+  const handleLogin = async () => {
     try {
       const postURL = '/auth/login';
       const fetchResponse = await fetch(postURL, {
@@ -35,46 +39,66 @@ function LoginComponent({ setClientData }) {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(loginUserData),
+        body: JSON.stringify({ username, password }),
       });
       const data = await fetchResponse.json();
-      setClientData(data)
-      return data;
+      if (data.err) {
+        setErrorMessage(data.err.message);
+      } else if (data.username) {
+        // successful log-in, redirect to the app
+        navigate('/app');
+      }
     } catch (error) {
-      // handle error
-      console.log(error);
-      return {};
+      console.error(error);
     }
-  };
-
-  const submitForm = (event) => {
-    event.preventDefault();
-    const buttonClicked = event.nativeEvent.submitter.id; // is there a better way to do this?
-    const formData = new FormData(event.target);
-    const userDataObject = Object.fromEntries(formData); // {username: hello, password: world}
-    if (buttonClicked === 'loginButton') handleLoginUser(userDataObject);
-    else if (buttonClicked === 'createButton') handleCreateUser(userDataObject);
   };
 
   return (
     <div className='loginPadding'>
-      <div className="loginContainer loginContainerBorder">
-        <form onSubmit={submitForm}>
-          <label htmlFor="username">
+      <div className='loginContainer loginContainerBorder'>
+        <form onSubmit={e => e.preventDefault()}>
+          <label htmlFor='username'>
             <p>Username:</p>
-            <input type="text" id="username" name="username" required />
+            <input
+              type='text'
+              id='username'
+              name='username'
+              required
+              value={username}
+              onChange={e => setUsername(e.target.value)}
+            />
           </label>
-          <label htmlFor="password">
+          <label htmlFor='password'>
             <p>Password:</p>
-            <input type="password" id="password" name="password" required />
+            <input
+              type='password'
+              id='password'
+              name='password'
+              required
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+            />
           </label>
-          <div className="loginButtonContainer">
-            <input type="submit" value="Login" className="submitButton" id="loginButton" />
-            <input type="submit" value="Create Account" className="submitButton" id="createButton" />
+          <div className='loginButtonContainer'>
+            <button
+              className='submitButton'
+              id='loginButton'
+              onClick={handleLogin}
+            >
+              Login
+            </button>
+            <button
+              className='submitButton'
+              id='createButton'
+              onClick={handleSignup}
+            >
+              Create Account
+            </button>
           </div>
         </form>
+        <span>{errorMessage}</span>
       </div>
-      <div className="waveBackground" />
+      <div className='waveBackground' />
     </div>
   );
 }
