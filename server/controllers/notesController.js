@@ -36,6 +36,7 @@ notesController.getNotesByUsername = async (req, res, next) => {
 
     const { _id: owner_id } = User;
     res.locals.notes = await Notes.find({ owner_id });
+
     return next();
   } catch (err) {
     next(err);
@@ -67,7 +68,7 @@ notesController.getUserNotes = async (req, res, next) => {
     const userNotes = await Notes.find({ owner_id });
 
     res.locals.notes = userNotes;
-
+    //
     return next();
   } catch (err) {
     next(err);

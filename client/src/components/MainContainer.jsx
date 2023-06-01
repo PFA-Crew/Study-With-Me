@@ -6,42 +6,40 @@ import Notepad from './Notepad.jsx';
 import Desktop from './Desktop.jsx';
 import Ducky from './Ducky.jsx';
 import FidgetSpinner from './FidgetSpinner.jsx';
+import CustomizationModal from './CustomizationModal.jsx';
+import Resources from './Resources.jsx';
+import Header from './Header.jsx';
 
-function MainContainer({ clientDataObject, setClientData }) {
-  // clientDataObject -> {user: {username: "hello", duckColor: "yellow"}, notes: []}
-  // handleLoginDialogClose();
+function MainContainer() {
   const [noteContent, setNoteContent] = useState({ title: '', content: '' });
   const [notes, addNote] = useState([]);
 
   // State to keep:
   const [totalNotes, setTotalNotes] = useState([]);
-  const [username, setUsername] = useState('6476a45aab9f3f4a421de589');
+  const [username, setUsername] = useState('');
+
+  // Customization Modal State
+  const [showCustomizationModal, setShowCustomizationModal] = useState(false);
 
   useEffect(() => {
     const fetchNotes = async () => {
       try {
-        const updatedNotes = await fetch('/notes', {
+        const response = await fetch('/notes', {
           method: 'GET',
           headers: { 'Content-Type': 'application/json' },
         });
-        if (!updatedNotes.ok) {
+        if (!response.ok) {
           throw new Error('request for updated notes failed');
         }
-        const results = await updatedNotes.json();
-        console.log('results in fetchNotes()', results);
-        setTotalNotes(results);
+        const results = await response.json();
+        setTotalNotes(results.notes);
+        setUsername(results.username);
       } catch (err) {
-        console.log('error in fetchNotes');
+        console.log(err);
       }
     };
     fetchNotes();
   }, []);
-
-  console.log('totalNotes in Maincontainer', totalNotes);
-  console.log('clientDataObject', clientDataObject);
-
-  // Customization Modal State
-  const [customWindow, setCustomWindow] = useState(false);
 
   // Widget State Handler (Ducky enabled by default)
   const [customizationOptions, setCustomizationOptions] = useState([
@@ -173,7 +171,7 @@ function MainContainer({ clientDataObject, setClientData }) {
   const [resourceURL, resourceURLSetter] = useState('');
   const [resourceWindow, setResourceWindow] = useState(false);
 
-  const handleResourceClick1 = event => {
+  const handleResourceClick = event => {
     event.preventDefault();
     const url = event.target.href;
     resourceURLSetter(url);
@@ -181,107 +179,20 @@ function MainContainer({ clientDataObject, setClientData }) {
   };
 
   return (
-    // INTERFACE
     <main>
-      <header>
-        <div id='hero'>
-          <p>Study With Me</p>
-        </div>
-        <div id='user'>
-          {/* <p>Pink Fairy Armadillo</p> */}
-          <p>{username}</p>
-          <img
-            id='userphoto'
-            src='https://cdn.donmai.us/original/11/3d/113df6ccf7a23bfc9bf47e850a229159.jpg'
-            alt='PFA'
-          />
-          <span
-            className='material-symbols-rounded'
-            onClick={() => {
-              setCustomWindow(true);
-            }}
-          >
-            settings
-          </span>
-        </div>
-      </header>
-
+      <Header
+        username={username}
+        setShowCustomizationModal={setShowCustomizationModal}
+      />
       <section id='layout'>
         <div id='navigation'>
-          {/* <Notes totalNotes={totalNotes}  notes={clientDataObject.notes} /> */}
           <Notes
             setTotalNotes={setTotalNotes}
             setNoteContent={setNoteContent}
             totalNotes={totalNotes}
           />
-
-          <div id='resourceLayout'>
-            <ul>Resources</ul>
-            <hr />
-            <div id='personalResourcesContainer'>
-              <li>
-                <a
-                  href='https://react.dev/reference/react'
-                  onClick={handleResourceClick1}
-                >
-                  Intro to React Hooks
-                </a>
-              </li>
-              <li>
-                <a
-                  href='https://www.mongodb.com/docs/atlas/'
-                  onClick={handleResourceClick1}
-                >
-                  MongoDB Atlas
-                </a>
-              </li>
-              <li>
-                <a
-                  href='https://cssgrid-generator.netlify.app/'
-                  onClick={handleResourceClick1}
-                >
-                  CSS Grid Generator
-                </a>
-              </li>
-            </div>
-            <ul>Study Resources</ul>
-            <hr />
-            <div id='studyResourcesContainer'>
-              {/* <li><a href="#" onClick={handleResourceOpen}>Best Study Practices</a></li> */}
-              <li>
-                <a
-                  href='https://www.indeed.com/career-advice/career-development/how-to-take-break-from-studying'
-                  onClick={handleResourceClick1}
-                >
-                  How to Take a Break from Studying
-                </a>
-              </li>
-
-              {/* <li><a href="https://www.webmd.com/balance/stress-management/stress-relief-breathing-techniques" onClick={handleResourceOpen}>Breathing Exercises</a></li> */}
-              <li>
-                <a
-                  href='https://www.webmd.com/balance/stress-management/stress-relief-breathing-techniques'
-                  onClick={handleResourceClick1}
-                >
-                  Breathing Exercises
-                </a>
-              </li>
-
-              {/* <li><a href="https://www.mayoclinic.org/healthy-lifestyle/adult-health/multimedia/stretching/sls-20076525" onClick={handleResourceOpen}>Desk Stretches</a></li> */}
-              <li>
-                <a
-                  href='https://www.healthline.com/health/deskercise'
-                  onClick={handleResourceClick1}
-                >
-                  Desk Stretches
-                </a>
-              </li>
-            </div>
-          </div>
+          <Resources handleResourceClick={handleResourceClick} />
         </div>
-        {/* noteContent={noteContent}
-        setTotalNotes={setTotalNotes}
-        notes={clientDataObject.notes} */}
         <div id='desktop'>
           <Desktop
             customizationOptions={customizationOptions}
@@ -303,98 +214,20 @@ function MainContainer({ clientDataObject, setClientData }) {
           />
         </div>
       </section>
-
-      {/* Customization Modal */}
-      {customWindow && (
-        <div className='customModal'>
-          <div className='customizationContent'>
-            <span
-              className='material-symbols-rounded'
-              id='customClose'
-              onClick={() => setCustomWindow(false)}
-            >
-              close
-            </span>
-            <div>
-              <label>Lucky Ducky Disabled: </label>
-              <input
-                type='checkbox'
-                id='duckCheck'
-                checked={duckyEnabled}
-                onChange={duckySetter}
-              ></input>
-            </div>
-            <div>
-              <label>Choose a Lucky Ducky:</label>
-              <select
-                name='duckies'
-                id='duckies'
-                onChange={handleDuckyVisual}
-                value={duckyVisual}
-              >
-                <option value='yellow'>Yellow</option>
-                <option value='blunicorn'>Blunicorn</option>
-                <option value='black'>Black</option>
-                <option value='santa'>Santa</option>
-                <option value='sailor'>Sailor</option>
-                <option value='crown'>Crown</option>
-                <option value='constable'>Constable</option>
-              </select>
-            </div>
-            <div>
-              <label>Lucky Ducky Position:</label>
-              <select
-                name='duckiesPos'
-                id='duckiesPos'
-                value={duckyPosition}
-                onChange={handleDuckyPosition}
-              >
-                <option value='topleft'>Top Left</option>
-                <option value='topright'>Top Right</option>
-                <option value='bottomleft'>Bottom Left</option>
-                <option value='bottomright'>Bottom Right</option>
-              </select>
-            </div>
-            <div>
-              <label>Pomodoro Timer Disabled: </label>
-              <input
-                type='checkbox'
-                id='pomCheck'
-                defaultChecked={timerEnabled}
-                onChange={timerSetter}
-              ></input>
-            </div>
-            {/* Future option: specify location for Pomodoro Timer */}
-            {/* <div>
-                <label for="pomPos">Pomodoro Timer Position:</label>
-                <select name="pomPos" id="pomPos">
-                  <option value="topleftt">Top Left</option>
-                  <option value="topright">Top Right</option>
-                  <option value="bottomleft">Bottom Left</option>
-                  <option value="bottomright">Bottom Right</option>
-                </select>
-              </div> */}
-            <div>
-              <label>Fidget Spinner Disabled: </label>
-              <input
-                type='checkbox'
-                id='fidgetCheck'
-                defaultChecked={fidgetEnabled}
-                onChange={fidgetSetter}
-              ></input>
-            </div>
-            {/* Future option: specify location for Fidget Spinner */}
-            {/* <div>
-                <label for="fidgetPos">Fidget Spinner Position:</label>
-                <select name="fidgetPos" id="fidgetPos">
-                  <option value="topleftt">Top Left</option>
-                  <option value="topright">Top Right</option>
-                  <option value="bottomleft">Bottom Left</option>
-                  <option value="bottomright">Bottom Right</option>
-                </select>
-              </div> */}
-          </div>
-        </div>
+      {showCustomizationModal && (
+        <CustomizationModal
+          duckyEnabled={duckyEnabled}
+          duckySetter={duckySetter}
+          handleDuckyVisual={handleDuckyVisual}
+          duckyVisual={duckyVisual}
+          duckyPosition={duckyPosition}
+          handleDuckyPosition={handleDuckyPosition}
+          timerEnabled={timerEnabled}
+          timerSetter={timerSetter}
+          fidgetEnabled={fidgetEnabled}
+          fidgetSetter={fidgetSetter}
+          setShowCustomizationModal={setShowCustomizationModal}
+        />
       )}
       <div className='waveBackground' />
     </main>
