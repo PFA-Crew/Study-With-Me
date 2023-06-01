@@ -5,10 +5,10 @@ const authRouter = require('./routes/authRouter');
 const notesRouter = require('./routes/notesRouter');
 const connectDB = require('./db.js');
 
-// connectDB();
+connectDB();
 
 // Our server port
-const PORT = 8888;
+const PORT = 1234;
 
 // Create an express app
 const app = express();
