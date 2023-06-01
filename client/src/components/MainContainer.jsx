@@ -7,6 +7,7 @@ import Desktop from './Desktop.jsx';
 import Ducky from './Ducky.jsx';
 import FidgetSpinner from './FidgetSpinner.jsx';
 import CustomizationModal from './CustomizationModal.jsx';
+import Resources from './Resources.jsx';
 
 function MainContainer() {
   // clientDataObject -> {user: {username: "hello", duckColor: "yellow"}, notes: []}
@@ -171,7 +172,7 @@ function MainContainer() {
   const [resourceURL, resourceURLSetter] = useState('');
   const [resourceWindow, setResourceWindow] = useState(false);
 
-  const handleResourceClick1 = event => {
+  const handleResourceClick = event => {
     event.preventDefault();
     const url = event.target.href;
     resourceURLSetter(url);
@@ -206,77 +207,14 @@ function MainContainer() {
 
       <section id='layout'>
         <div id='navigation'>
-          {/* <Notes totalNotes={totalNotes}  notes={clientDataObject.notes} /> */}
           <Notes
             setTotalNotes={setTotalNotes}
             setNoteContent={setNoteContent}
             totalNotes={totalNotes}
           />
-
-          <div id='resourceLayout'>
-            <ul>Resources</ul>
-            <hr />
-            <div id='personalResourcesContainer'>
-              <li>
-                <a
-                  href='https://react.dev/reference/react'
-                  onClick={handleResourceClick1}
-                >
-                  Intro to React Hooks
-                </a>
-              </li>
-              <li>
-                <a
-                  href='https://www.mongodb.com/docs/atlas/'
-                  onClick={handleResourceClick1}
-                >
-                  MongoDB Atlas
-                </a>
-              </li>
-              <li>
-                <a
-                  href='https://cssgrid-generator.netlify.app/'
-                  onClick={handleResourceClick1}
-                >
-                  CSS Grid Generator
-                </a>
-              </li>
-            </div>
-            <ul>Study Resources</ul>
-            <hr />
-            <div id='studyResourcesContainer'>
-              {/* <li><a href="#" onClick={handleResourceOpen}>Best Study Practices</a></li> */}
-              <li>
-                <a
-                  href='https://www.indeed.com/career-advice/career-development/how-to-take-break-from-studying'
-                  onClick={handleResourceClick1}
-                >
-                  How to Take a Break from Studying
-                </a>
-              </li>
-
-              {/* <li><a href="https://www.webmd.com/balance/stress-management/stress-relief-breathing-techniques" onClick={handleResourceOpen}>Breathing Exercises</a></li> */}
-              <li>
-                <a
-                  href='https://www.webmd.com/balance/stress-management/stress-relief-breathing-techniques'
-                  onClick={handleResourceClick1}
-                >
-                  Breathing Exercises
-                </a>
-              </li>
-
-              {/* <li><a href="https://www.mayoclinic.org/healthy-lifestyle/adult-health/multimedia/stretching/sls-20076525" onClick={handleResourceOpen}>Desk Stretches</a></li> */}
-              <li>
-                <a
-                  href='https://www.healthline.com/health/deskercise'
-                  onClick={handleResourceClick1}
-                >
-                  Desk Stretches
-                </a>
-              </li>
-            </div>
-          </div>
+          <Resources handleResourceClick={handleResourceClick} />
         </div>
+
         {/* noteContent={noteContent}
         setTotalNotes={setTotalNotes}
         notes={clientDataObject.notes} */}
