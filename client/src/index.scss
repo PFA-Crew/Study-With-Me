@@ -13,23 +13,14 @@ $primaryText: #0c0c0c;
 }
 
 body {
-  height: 100vh;
-  width: 100vw;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   background: linear-gradient(
     $oceanBlue,
     $primaryWhite 70%,
     $primaryWhite 75%,
     $oceanBlue 80%
   );
-}
-
-#root {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .waveBackground {
@@ -46,66 +37,48 @@ body {
 
 .loginContainer {
   display: flex;
-  width: 30%;
-  min-width: 400px;
-  height: 35%;
-  min-height: 300px;
+  padding: 2rem;
   background-color: #fcfcfcc5;
   box-shadow: 0px 0px 100px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   form {
-    margin-top: 20%;
-    gap: 10px;
-    width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    font-size: 1.75rem;
+    gap: 2rem;
     label {
       text-align: center;
       width: 100%;
       display: flex;
       flex-direction: row;
-    }
-    p {
-      display: inline;
-      width: 45%;
+      gap: 1rem;
     }
     input {
-      width: 45%;
+      flex-grow: 1;
+      outline: none;
+      border: 1px solid gray;
+      padding: 0.25rem 0.5rem;
       border-radius: 5px;
-      &:hover {
-        transform: translateY(1px);
-        box-shadow: 0px 0px 20px rgba(99, 99, 99, 0.146);
-        transition: 100ms linear;
-        border-radius: 5px;
-      }
-    }
-
-    #username,
-    #password {
-      padding-left: 10px;
     }
   }
 }
 
+.loginPadding {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+}
+
 .loginButtonContainer {
   width: 100%;
-  display: grid;
-  justify-items: center;
-  height: 70px;
-  grid-template-columns: 1fr 1fr;
-  .submitButton {
-    display: block;
-    margin-top: 10%;
-    font-size: 1rem;
-    width: 60%;
-    background-color: white;
-    &:hover {
-      transform: translateY(1px);
-      box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.146);
-      transition: 100ms linear;
-    }
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 2rem;
+  button {
+    cursor: pointer;
+    padding: 0.5rem 1rem;
   }
 }
 
@@ -158,14 +131,6 @@ body {
   }
 }
 
-.loginPadding {
-  display: flex;
-  height: 100vh;
-  width: 100vw;
-  justify-content: center;
-  align-items: center;
-}
-
 #fidgetSpinner:hover {
   animation-name: rotate;
   animation-duration: 0.5s;
@@ -179,11 +144,6 @@ body {
   to {
     transform: rotate(360deg);
   }
-}
-
-* {
-  padding: 0;
-  margin: 0;
 }
 
 header {
