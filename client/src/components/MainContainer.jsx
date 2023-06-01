@@ -8,10 +8,9 @@ import Ducky from './Ducky.jsx';
 import FidgetSpinner from './FidgetSpinner.jsx';
 import CustomizationModal from './CustomizationModal.jsx';
 import Resources from './Resources.jsx';
+import Header from './Header.jsx';
 
 function MainContainer() {
-  // clientDataObject -> {user: {username: "hello", duckColor: "yellow"}, notes: []}
-  // handleLoginDialogClose();
   const [noteContent, setNoteContent] = useState({ title: '', content: '' });
   const [notes, addNote] = useState([]);
 
@@ -182,29 +181,10 @@ function MainContainer() {
   return (
     // INTERFACE
     <main>
-      <header>
-        <div id='hero'>
-          <p>Study With Me</p>
-        </div>
-        <div id='user'>
-          {/* <p>Pink Fairy Armadillo</p> */}
-          <p>{username}</p>
-          <img
-            id='userphoto'
-            src='https://cdn.donmai.us/original/11/3d/113df6ccf7a23bfc9bf47e850a229159.jpg'
-            alt='PFA'
-          />
-          <span
-            className='material-symbols-rounded'
-            onClick={() => {
-              setShowCustomizationModal(true);
-            }}
-          >
-            settings
-          </span>
-        </div>
-      </header>
-
+      <Header
+        username={username}
+        setShowCustomizationModal={setShowCustomizationModal}
+      />
       <section id='layout'>
         <div id='navigation'>
           <Notes
