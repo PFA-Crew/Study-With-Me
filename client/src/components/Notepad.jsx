@@ -21,7 +21,7 @@ function Notepad({ totalNotes, setTotalNotes }) {
 
       // Update state (located in MainContainer)
       const newNote = { title, content };
-      setTotalNotes(totalNotes.push(newNote)); //update totalNotes to the newer version
+      setTotalNotes([...totalNotes, newNote]); //update totalNotes to the newer version
 
       console.log('Created a new note.');
       console.log('totalNotes after save button click', totalNotes);
