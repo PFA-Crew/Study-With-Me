@@ -20,25 +20,26 @@ function MainContainer({ clientDataObject, setClientData }) {
   useEffect(() => {
     const fetchNotes = async () => {
       try {
-        const updatedNotes = await fetch('/notes', {
+        const response = await fetch('/notes', {
           method: 'GET',
           headers: { 'Content-Type': 'application/json' },
         });
-        if (!updatedNotes.ok) {
+        if (!response.ok) {
           throw new Error('request for updated notes failed');
         }
-        const results = await updatedNotes.json();
+        const results = await response.json();
         console.log('results in fetchNotes()', results);
-        setTotalNotes(results);
+        setTotalNotes(results.notes);
+        setUsername(results.username);
       } catch (err) {
-        console.log('error in fetchNotes');
+        console.log(err);
       }
     };
     fetchNotes();
   }, []);
 
   console.log('totalNotes in Maincontainer', totalNotes);
-  console.log('clientDataObject', clientDataObject);
+  console.log('userName in Maincontainer', username);
 
   // Customization Modal State
   const [customWindow, setCustomWindow] = useState(false);

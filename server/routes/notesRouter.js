@@ -18,7 +18,8 @@ router.get(
   '/',
   sessionController.isLoggedIn,
   notesController.getNotesByUsername,
-  (req, res) => res.json(res.locals.notes),
+  (req, res) =>
+    res.json({ username: res.locals.username, notes: res.locals.notes }),
 );
 
 router.post('/display', notesController.getNote, (req, res) => {
