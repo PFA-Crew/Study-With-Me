@@ -1,0 +1,28 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# PS1 Colorizer Vars
+Color_Off=$'\033[0m'
+Red=$'\033[0;31m'              # Red
+Green=$'\033[0;32m'            # Green
+Yellow=$'\033[0;33m'           # Yellow
+Blue=$'\033[0;34m'             # Blue
+Purple=$'\033[0;35m'           # Purple
+Cyan=$'\033[0;36m'             # Cyan
+White=$'\033[0;37m'            # White
+
+# Prevents force-pushing to main or dev
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+PUSH_COMMAND=$(ps -ocommand= -p $PPID)
+PROTECTED_BRANCHES="^(main|dev|release\/*|patch\/*)"
+FORCE_PUSH="force|delete|-f"
+if [[ "$BRANCH" =~ $PROTECTED_BRANCHES && "$PUSH_COMMAND" =~ $FORCE_PUSH ]]; then
+  echo "Prevented force-push to protected branch \"$BRANCH\" by pre-push hook"
+  exit 1
+fi
+
+# Tests must pass before pushing
+npm test 
+
+exit 0
+

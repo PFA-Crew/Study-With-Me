@@ -14,7 +14,7 @@ function Notes({ totalNotes, setSavedNote }) {
 
   return (
     <div id='noteLayout'>
-      <ul>Notes</ul>
+      <h3>Notes</h3>
       <hr />
       <div id='notesContainer'>
         <ul>
