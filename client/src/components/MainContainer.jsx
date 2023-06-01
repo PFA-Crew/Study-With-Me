@@ -179,7 +179,6 @@ function MainContainer() {
   };
 
   return (
-    // INTERFACE
     <main>
       <Header
         username={username}
@@ -194,10 +193,6 @@ function MainContainer() {
           />
           <Resources handleResourceClick={handleResourceClick} />
         </div>
-
-        {/* noteContent={noteContent}
-        setTotalNotes={setTotalNotes}
-        notes={clientDataObject.notes} */}
         <div id='desktop'>
           <Desktop
             customizationOptions={customizationOptions}
