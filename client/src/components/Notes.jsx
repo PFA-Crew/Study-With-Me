@@ -5,7 +5,7 @@ function Notes({ totalNotes }) {
   //totalNotes is an array containing objects { title: string, content: string }
   return (
     <div id='noteLayout'>
-      <ul>Notes</ul>
+      <h3>Notes</h3>
       <hr />
       <div id='notesContainer'>
         <ul>
