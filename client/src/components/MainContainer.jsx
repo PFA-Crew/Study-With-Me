@@ -11,10 +11,10 @@ import Resources from './Resources.jsx';
 import Header from './Header.jsx';
 
 function MainContainer() {
-  const [noteContent, setNoteContent] = useState({ title: '', content: '' });
   const [notes, addNote] = useState([]);
 
   // State to keep:
+  const [savedNote, setSavedNote] = useState({ title: '', content: '' });
   const [totalNotes, setTotalNotes] = useState([]);
   const [username, setUsername] = useState('');
 
@@ -188,7 +188,7 @@ function MainContainer() {
         <div id='navigation'>
           <Notes
             setTotalNotes={setTotalNotes}
-            setNoteContent={setNoteContent}
+            setSavedNote={setSavedNote}
             totalNotes={totalNotes}
           />
           <Resources handleResourceClick={handleResourceClick} />
@@ -211,6 +211,8 @@ function MainContainer() {
             username={username}
             totalNotes={totalNotes}
             setTotalNotes={setTotalNotes}
+            savedNote={savedNote}
+            setSavedNote={setSavedNote}
           />
         </div>
       </section>

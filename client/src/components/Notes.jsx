@@ -1,8 +1,17 @@
 import React from 'react';
 import './assets/App.scss';
 
-function Notes({ totalNotes }) {
+function Notes({ totalNotes, setSavedNote }) {
   //totalNotes is an array containing objects { title: string, content: string }
+
+  // create handler for click of a note
+  const handleClick = note => {
+    console.log(`${note.title} clicked!`);
+    setSavedNote(note);
+  };
+
+  // change each note element to be a link, or add styling to let user the text is clickable
+
   return (
     <div id='noteLayout'>
       <ul>Notes</ul>
@@ -10,7 +19,13 @@ function Notes({ totalNotes }) {
       <div id='notesContainer'>
         <ul>
           {totalNotes.map((note, i) => (
-            <li key={i}>{note.title}</li>
+            <li
+              style={{ cursor: 'pointer' }}
+              key={i}
+              onClick={() => handleClick(note)}
+            >
+              {note.title}
+            </li>
           ))}
         </ul>
       </div>
