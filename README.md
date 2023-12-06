@@ -1,5 +1,6 @@
 # Study With Me
-Study With Me is a virtual study space and dashboard that provides users with common modules to help with studying, focusing, proper break practices, stress relief, and note taking.
+![Study With Me Demo](https://raw.githubusercontent.com/PFA-Crew/Study-With-Me/dev/assets/Dec-06-2023%2011-13-25.gif)
+Study With Me is a virtual study space and dashboard that provides users with common modules to help with studying, focusing, proper break practices, stress relief, and note-taking.
 
 <div align="center" style="display: flex; justify-content: center; gap: 25px;">
   <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white">
@@ -10,7 +11,7 @@ Study With Me is a virtual study space and dashboard that provides users with co
 </div>
 
 # Initial Setup
-Study With Me requires a running MongoDB database to access the contents beyond the login screen, and for that we recommend utilizing [MongoDB's Atlas service](https://www.mongodb.com/atlas/database). Deploying a shared cluster for testing purposes will allow you to choose the free tier labeled **M0 Sandbox**.
+Study With Me requires a running MongoDB database to access the contents beyond the login screen, and for that, we recommend utilizing [MongoDB's Atlas service](https://www.mongodb.com/atlas/database). Deploying a shared cluster for testing purposes will allow you to choose the free tier labeled **M0 Sandbox**.
 
 Ensure your IP address is whitelisted for database access with a database test account created before continuing.
 
