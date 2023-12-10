@@ -1,17 +1,30 @@
-To add mongoDB, add a config.js in server folder and add a mondule.exports with an object that has a MONGO_URI key linking to your database
+# Study With Me
+![Study With Me Demo](https://raw.githubusercontent.com/PFA-Crew/Study-With-Me/dev/assets/Dec-06-2023%2011-13-25.gif)
+Study With Me is a virtual study space and dashboard that provides users with common modules to help with studying, focusing, proper break practices, stress relief, and note-taking.
 
-TODO: 
-- Timer.jsx: Fix Pomodoro timer functionality ⏱️
-- Notes/Notepad.jsx edit notes feature (there is already a update route in notesRouter.js with middleware)
-- Notes/Notepad.jsx create more than one note at a time without it breaking 🔫
-- ?.jsx/Desktop.jsx Unable to select/display notes after saving a new note 🙏
-- Desktop.jsx: Can make cell populator code more DRY 🌵
-- Desktop.jsx: Need to create button for closing out the Resource Iframe ❌
-- Desktop.jsx: Stretch features - music player in cell 8, have Notepad to primarily be i Cell 5 but relocate to cell 6 when a Resource is opened. 🎶
-- Ducky.jsx: ducky state from login to have that already set 🤙
-- Ducky.jsx: Selecting the same position back-to-back **kills** the ducky D:
-- Ducky.jsx: Stretch features - different method for Ducky customization, add hats, inspriational quacks 🦆
-- App.jsx: Dropdown menu will not retain the selected position 😓
-- App.jsx: cannot change back to Top Left without resetting 😤
-- App.jsx: Ducky will overpower any existing widget in position (as it should? but maybe not?) 🤷‍♀️
-- Feature to add resources
+<div align="center" style="display: flex; justify-content: center; gap: 25px;">
+  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white">
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB">
+  <img src="https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB">
+  <img src="https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white">
+  <img src="https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white">
+</div>
+
+# Initial Setup
+Study With Me requires a running MongoDB database to access the contents beyond the login screen, and for that, we recommend utilizing [MongoDB's Atlas service](https://www.mongodb.com/atlas/database). Deploying a shared cluster for testing purposes will allow you to choose the free tier labeled **M0 Sandbox**.
+
+Ensure your IP address is whitelisted for database access with a database test account created before continuing.
+
+After obtaining the connection string, you will need to create a `config.js` file with content that follows this format:
+```js
+module.exports = {
+  MONGO_URI: 'PASTE_CONNECTION_STRING_HERE',
+};
+```
+###### Do not forget to replace the <password> at the start of the connection string with the database user's password
+
+# Installation
+```sh
+npm install
+npm run dev
+```
